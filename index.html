@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ช่างฮาน — ศูนย์ซ่อม BMW เชี่ยวชาญ</title>
+<meta name="description" content="ช่างฮาน ศูนย์ซ่อมบำรุง BMW ชั้นนำ ด้วยประสบการณ์กว่า 15 ปี ความแม่นยำระดับโรงงาน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;600;700;800;900&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — 9 COLOR TOKENS
+============================================= */
+:root {
+  --background:  #1C1C1E;
+  --card:        #252527;
+  --bg-accent:   #111113;
+  --foreground:  #F5F5F0;
+  --muted:       #8A8A8E;
+  --border:      #2E2E32;
+  --primary:     #0047FF;
+  --secondary:   #3A3A3C;
+  --accent:      #FFFFFF;
+
+  --font-heading: 'Kanit', 'Sukhumvit Set', sans-serif;
+  --font-body:    'Sarabun', 'IBM Plex Sans Thai', 'Noto Sans Thai', sans-serif;
+}
+
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--background);
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =============================================
+   TYPOGRAPHY SYSTEM
+============================================= */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  color: var(--foreground);
+}
+
+p, span, li, a, label, input, textarea, button {
+  font-family: var(--font-body);
+}
+
+.section-marker {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-marker::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+/* =============================================
+   NAVBAR
+============================================= */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, padding 0.4s ease, border-bottom 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+#navbar.scrolled {
+  background: rgba(28, 28, 30, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.875rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo span {
+  color: var(--primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--foreground);
+}
+
+/* Language switcher */
+.lang-sw {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: color 0.3s ease;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  user-select: none;
+}
+
+.lang-sw:hover {
+  color: var(--foreground);
+  border-color: var(--muted);
+}
+
+.lang-sw svg {
+  opacity: 0.7;
+}
+
+.lang-sw__label {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--foreground);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile menu */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-accent);
+  z-index: 99;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-mobile.open {
+  display: flex;
+}
+
+.nav-mobile a {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  padding: 1rem 2rem;
+  transition: color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-mobile a:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.nav-mobile a:hover {
+  color: var(--primary);
+}
+
+/* =============================================
+   HERO — FIXED PARALLAX
+============================================= */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(28, 28, 30, 0.97) 0%,
+    rgba(28, 28, 30, 0.7) 40%,
+    rgba(28, 28, 30, 0.2) 70%,
+    rgba(28, 28, 30, 0.05) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 1.5rem 3rem;
+  max-width: 900px;
+}
+
+.hero-marker {
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 10vw, 7rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin-bottom: 1.25rem;
+}
+
+.hero-title .accent-line {
+  color: var(--primary);
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+  min-height: 44px;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: #003ACC;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 400;
+  padding: 0.875rem 2rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  min-height: 44px;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  border-color: var(--muted);
+  color: var(--accent);
+}
+
+.hero-stats {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 3rem;
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: right;
+}
+
+.hero-stat-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--foreground);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero-stat-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   TICKER STRIP
+============================================= */
+.ticker-wrap {
+  background: var(--primary);
+  overflow: hidden;
+  padding: 0.6rem 0;
+  position: relative;
+  z-index: 3;
+}
+
+.ticker-inner {
+  display: flex;
+  gap: 0;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 2rem;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.ticker-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =============================================
+   SECTIONS — SHARED
+============================================= */
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   ABOUT / IDENTITY SECTION
+============================================= */
+.about {
+  background: var(--bg-accent);
+  position: relative;
+  overflow: hidden;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.about-image-wrap {
+  position: relative;
+}
+
+.about-image-wrap img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
+.about-badge {
+  position: absolute;
+  bottom: -1rem;
+  right: 1rem;
+  background: var(--primary);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+}
+
+.about-text h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.about-text p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.about-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.about-metric-num {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--foreground);
+  letter-spacing: -0.03em;
+}
+
+.about-metric-unit {
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.about-metric-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 0.25rem;
+}
+
+/* =============================================
+   SERVICES — NUMBERED STEPS
+============================================= */
+.services {
+  background: var(--background);
+}
+
+.services-header {
+  margin-bottom: 3.5rem;
+}
+
+.services-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.services-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.service-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  transition: background 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.service-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.service-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: var(--card);
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.service-item:hover::before {
+  width: 100%;
+}
+
+.service-num {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  padding-top: 0.4rem;
+}
+
+.service-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.service-content p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.service-icon {
+  color: var(--primary);
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  display: flex;
+}
+
+/* =============================================
+   PROCESS — ALTERNATING IMAGE/TEXT
+============================================= */
+.process {
+  background: var(--bg-accent);
+  position: relative;
+}
+
+.process-header {
+  margin-bottom: 4rem;
+}
+
+.process-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.process-step-image {
+  overflow: hidden;
+  position: relative;
+}
+
+.process-step-image img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.process-step:hover .process-step-image img {
+  transform: scale(1.04);
+}
+
+.process-step-num {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(245, 245, 240, 0.08);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+
+.process-step-label {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.process-step h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.875rem;
+  line-height: 1.4;
+}
+
+.process-step p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* =============================================
+   GALLERY — FULL BLEED STRIP
+============================================= */
+.gallery-strip {
+  background: var(--background);
+  padding: 3rem 0;
+  overflow: hidden;
+}
+
+.gallery-strip-header {
+  padding: 0 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0 1.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-item {
+  flex-shrink: 0;
+  width: 260px;
+  height: 340px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.gallery-item:nth-child(even) {
+  margin-top: 2rem;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-item-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1rem 1rem;
+  background: linear-gradient(to top, rgba(28,28,30,0.9), transparent);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* =============================================
+   WHY US — ANGLED SECTION
+============================================= */
+.why-us {
+  background: var(--card);
+  position: relative;
+  padding: 5rem 1.5rem 6rem;
+  clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%);
+  margin: 2rem 0;
+}
+
+.why-us-header {
+  margin-bottom: 3rem;
+}
+
+.why-us-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.why-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--primary);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
+}
+
+.why-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.why-card:hover::before {
+  transform: scaleY(1);
+}
+
+.why-icon {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.why-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.why-card p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* =============================================
+   TESTIMONIALS
+============================================= */
+.testimonials {
+  background: var(--bg-accent);
+  padding: 5rem 1.5rem;
+}
+
+.testimonials-header {
+  margin-bottom: 3rem;
+}
+
+.testimonials-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.testimonials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: var(--muted);
+}
+
+.testimonial-quote-mark {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--primary);
+  opacity: 0.3;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-weight: 900;
+}
+
+.testimonial-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--foreground);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.testimonial-name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.testimonial-detail {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.testimonial-stars {
+  margin-left: auto;
+  color: var(--primary);
+  display: flex;
+  gap: 2px;
+}
+
+/* =============================================
+   CTA FULL BLEED
+============================================= */
+.cta-section {
+  position: relative;
+  padding: 5rem 1.5rem;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.cta-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cta-bg-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.15);
+}
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 71, 255, 0.15), transparent);
+  z-index: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  font-weight: 900;
+  color: var(--foreground);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-content p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* =============================================
+   CONTACT
+============================================= */
+.contact {
+  background: var(--bg-accent);
+  padding: 5rem 1.5rem;
+}
+
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.contact-info h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-detail-icon {
+  color: var(--primary);
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.contact-detail-label {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.contact-detail-value {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--foreground);
+  line-height: 1.7;
+}
+
+/* Contact form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.875rem 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  min-height: 44px;
+  line-height: 1.8;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+}
+
+.form-group select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background: var(--bg-accent);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand span {
+  color: var(--primary);
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.footer-nav h4 {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.footer-nav a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--foreground);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* =============================================
+   SCROLL REVEAL ANIMATIONS
+============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* =============================================
+   DESKTOP STYLES (768px+)
+============================================= */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .hero-content {
+    padding: 0 3rem 4rem;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: auto;
+  }
+
+  .hero-stats {
+    display: flex;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .about-image-wrap img {
+    height: 420px;
+  }
+
+  .services-list {
+    max-width: 800px;
+  }
+
+  .process-step {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .process-step:nth-child(even) .process-step-image {
+    order: 1;
+  }
+
+  .process-step:nth-child(even) .process-step-text {
+    order: 0;
+  }
+
+  .gallery-item {
+    width: 320px;
+    height: 420px;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .contact-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 7rem 2rem;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hero-content {
+    padding: 0 4rem 5rem;
+  }
+
+  #navbar {
+    padding: 1.5rem 3rem;
+  }
+
+  #navbar.scrolled {
+    padding: 1rem 3rem;
+  }
+
+  .process-step-image img {
+    height: 360px;
+  }
+
+  .gallery-item {
+    width: 380px;
+    height: 480px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     NAVBAR
+============================================= -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span>CHANG</span>HAN
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+    <li><a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a></li>
+    <li><a href="#process" data-lang-th="ขั้นตอน" data-lang-en="Process">ขั้นตอน</a></li>
+    <li><a href="#contact" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-sw">
+      <i data-lucide="globe" width="14" height="14"></i>
+      <span class="lang-sw__label">TH</span>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#about" class="mobile-link" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+  <a href="#services" class="mobile-link" data-lang-th="บริการ" data-lang-en="Services">บริการ</a>
+  <a href="#process" class="mobile-link" data-lang-th="ขั้นตอน" data-lang-en="Process">ขั้นตอน</a>
+  <a href="#gallery" class="mobile-link" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a>
+  <a href="#contact" class="mobile-link" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a>
+</div>
+
+<!-- =============================================
+     HERO
+============================================= -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg">
+    <img
+      src="https://images.unsplash.com/photo-1595787142842-7404bc60470d?w=1600&h=900&fit=crop"
+      alt="BMW engine detail close up"
+    >
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-marker section-marker reveal">
+      <span data-lang-th="ศูนย์ซ่อม BMW ชั้นนำ" data-lang-en="BMW SPECIALIST WORKSHOP">ศูนย์ซ่อม BMW ชั้นนำ</span>
+    </div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      <span data-lang-th="ความแม่นยำ" data-lang-en="PRECISION">ความแม่นยำ</span>
+      <span class="accent-line" data-lang-th="ระดับโรงงาน" data-lang-en="ENGINEERED">ระดับโรงงาน</span>
+    </h1>
+    <p class="hero-subtitle reveal reveal-delay-2" data-lang-th="ช่างฮาน คือศูนย์ซ่อมบำรุง BMW เฉพาะทาง ด้วยประสบการณ์กว่า 15 ปี เรามอบการดูแลรถยนต์ของคุณด้วยมาตรฐานระดับโรงงาน" data-lang-en="Chang Han is Bangkok's premier BMW-exclusive specialist. 15 years of obsessive precision. Factory-level diagnostics and craftsmanship, every time.">ช่างฮาน คือศูนย์ซ่อมบำรุง BMW เฉพาะทาง ด้วยประสบการณ์กว่า 15 ปี เรามอบการดูแลรถยนต์ของคุณด้วยมาตรฐานระดับโรงงาน</p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a href="#contact" class="btn-primary">
+        <i data-lucide="calendar" width="16" height="16"></i>
+        <span data-lang-th="จองคิวซ่อม" data-lang-en="Book Appointment">จองคิวซ่อม</span>
+      </a>
+      <a href="#services" class="btn-secondary">
+        <span data-lang-th="ดูบริการทั้งหมด" data-lang-en="View Services">ดูบริการทั้งหมด</span>
+        <i data-lucide="arrow-right" width="16" height="16"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">15<span style="color:var(--primary)">+</span></div>
+      <div class="hero-stat-label" data-lang-th="ปีประสบการณ์" data-lang-en="YEARS EXPERIENCE">ปีประสบการณ์</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">4K<span style="color:var(--primary)">+</span></div>
+      <div class="hero-stat-label" data-lang-th="รถที่ผ่านมือ" data-lang-en="CARS SERVICED">รถที่ผ่านมือ</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">98<span style="color:var(--primary)">%</span></div>
+      <div class="hero-stat-label" data-lang-th="ความพึงพอใจ" data-lang-en="SATISFACTION">ความพึงพอใจ</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     TICKER
+============================================= -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">
+      <i data-lucide="settings" width="12" height="12"></i>
+      <span data-lang-th="เชี่ยวชาญ BMW ทุกรุ่น" data-lang-en="ALL BMW MODELS">เชี่ยวชาญ BMW ทุกรุ่น</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="shield-check" width="12" height="12"></i>
+      <span data-lang-th="รับประกันทุกงาน" data-lang-en="WARRANTY GUARANTEED">รับประกันทุกงาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="cpu" width="12" height="12"></i>
+      <span data-lang-th="เครื่องมือ OEM มาตรฐาน" data-lang-en="OEM DIAGNOSTIC TOOLS">เครื่องมือ OEM มาตรฐาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="wrench" width="12" height="12"></i>
+      <span data-lang-th="อะไหล่แท้ 100%" data-lang-en="GENUINE PARTS ONLY">อะไหล่แท้ 100%</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="clock" width="12" height="12"></i>
+      <span data-lang-th="นัดหมายล่วงหน้า — ไม่ต้องรอนาน" data-lang-en="APPOINTMENT-BASED — NO WAITING">นัดหมายล่วงหน้า — ไม่ต้องรอนาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item">
+      <i data-lucide="settings" width="12" height="12"></i>
+      <span data-lang-th="เชี่ยวชาญ BMW ทุกรุ่น" data-lang-en="ALL BMW MODELS">เชี่ยวชาญ BMW ทุกรุ่น</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="shield-check" width="12" height="12"></i>
+      <span data-lang-th="รับประกันทุกงาน" data-lang-en="WARRANTY GUARANTEED">รับประกันทุกงาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="cpu" width="12" height="12"></i>
+      <span data-lang-th="เครื่องมือ OEM มาตรฐาน" data-lang-en="OEM DIAGNOSTIC TOOLS">เครื่องมือ OEM มาตรฐาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="wrench" width="12" height="12"></i>
+      <span data-lang-th="อะไหล่แท้ 100%" data-lang-en="GENUINE PARTS ONLY">อะไหล่แท้ 100%</span>
+      <span class="ticker-dot"></span>
+    </span>
+    <span class="ticker-item">
+      <i data-lucide="clock" width="12" height="12"></i>
+      <span data-lang-th="นัดหมายล่วงหน้า — ไม่ต้องรอนาน" data-lang-en="APPOINTMENT-BASED — NO WAITING">นัดหมายล่วงหน้า — ไม่ต้องรอนาน</span>
+      <span class="ticker-dot"></span>
+    </span>
+  </div>
+</div>
+
+<!-- =============================================
+     ABOUT
+============================================= -->
+<section class="about section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal-left">
+        <img
+          src="https://images.unsplash.com/photo-1563969105242-37c55b40c5ae?w=700&h=500&fit=crop"
+          alt="BMW car at Chang Han workshop"
+        >
+        <div class="about-badge" data-lang-th="ก่อตั้งปี 2009" data-lang-en="EST. 2009">ก่อตั้งปี 2009</div>
+      </div>
+      <div class="about-text">
+        <div class="section-marker reveal">
+          <span data-lang-th="ตัวตนของเรา" data-lang-en="WHO WE ARE">ตัวตนของเรา</span>
+        </div>
+        <h2 class="reveal reveal-delay-1" data-lang-th="เราไม่ซ่อมรถ<br>เราฟื้นฟูวิศวกรรม" data-lang-en="We don't fix cars.<br>We restore engineering.">เราไม่ซ่อมรถ<br>เราฟื้นฟูวิศวกรรม</h2>
+        <p class="reveal reveal-delay-2" data-lang-th="ช่างฮานเริ่มต้นจากความหลงใหลใน BMW อย่างแท้จริง เราเป็นช่างที่เลือกเชี่ยวชาญเพียงยี่ห้อเดียว เพื่อให้ความรู้ลึกถึงระดับ DNA ของรถแต่ละรุ่น" data-lang-en="Chang Han was born from a deep obsession with BMW engineering. By choosing to specialise in a single marque, we've developed a depth of knowledge that generalist shops simply cannot match.">ช่างฮานเริ่มต้นจากความหลงใหลใน BMW อย่างแท้จริง เราเป็นช่างที่เลือกเชี่ยวชาญเพียงยี่ห้อเดียว เพื่อให้ความรู้ลึกถึงระดับ DNA ของรถแต่ละรุ่น</p>
+        <p class="reveal reveal-delay-3" data-lang-th="ทีมช่างของเราผ่านการฝึกอบรมระดับนานาชาติ และใช้เครื่องมือ ISTA / ISTA-P ที่ BMW AG อนุมัติ ทุกการซ่อมแซมคือข้อมูลที่บันทึกไว้ในระบบ ไม่ใช่แค่คำพูด" data-lang-en="Our technicians are internationally trained and use ISTA / ISTA-P tooling approved by BMW AG. Every repair is documented in our system — not just a verbal promise.">ทีมช่างของเราผ่านการฝึกอบรมระดับนานาชาติ และใช้เครื่องมือ ISTA / ISTA-P ที่ BMW AG อนุมัติ ทุกการซ่อมแซมคือข้อมูลที่บันทึกไว้ในระบบ ไม่ใช่แค่คำพูด</p>
+        <div class="about-metrics reveal reveal-delay-4">
+          <div>
+            <div class="about-metric-num">15<span class="about-metric-unit">+</span></div>
+            <div class="about-metric-label" data-lang-th="ปีเชี่ยวชาญ BMW" data-lang-en="Years BMW Focus">ปีเชี่ยวชาญ BMW</div>
+          </div>
+          <div>
+            <div class="about-metric-num">4K<span class="about-metric-unit">+</span></div>
+            <div class="about-metric-label" data-lang-th="คันที่ผ่านการซ่อม" data-lang-en="Cars Serviced">คันที่ผ่านการซ่อม</div>
+          </div>
+          <div>
+            <div class="about-metric-num">8<span class="about-metric-unit">+</span></div>
+            <div class="about-metric-label" data-lang-th="ช่างเฉพาะทาง" data-lang-en="Specialist Techs">ช่างเฉพาะทาง</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SERVICES
+============================================= -->
+<section class="services section" id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="section-marker reveal">
+        <span data-lang-th="บริการของเรา" data-lang-en="OUR SERVICES">บริการของเรา</span>
+      </div>
+      <h2 class="reveal reveal-delay-1" data-lang-th="ครอบคลุมทุกระบบ<br>ของ BMW คุณ" data-lang-en="Full-spectrum care<br>for your BMW">ครอบคลุมทุกระบบ<br>ของ BMW คุณ</h2>
+    </div>
+
+    <ul class="services-list">
+      <li class="service-item reveal">
+        <div class="service-num">01</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="cpu" width="20" height="20"></i></div>
+          <h3 data-lang-th="วินิจฉัยและโปรแกรมระบบ" data-lang-en="Diagnostics & ECU Programming">วินิจฉัยและโปรแกรมระบบ</h3>
+          <p data-lang-th="ตรวจสอบด้วยเครื่อง ISTA ระดับ OEM ที่ BMW ใช้จริงในโรงงาน อ่านโค้ด รีเซ็ต พร้อมรายงานผลเป็นลายลักษณ์อักษร" data-lang-en="Full OEM-level ISTA diagnostics — the same system BMW uses in their factories. Code reading, reset, and written condition report included.">ตรวจสอบด้วยเครื่อง ISTA ระดับ OEM ที่ BMW ใช้จริงในโรงงาน อ่านโค้ด รีเซ็ต พร้อมรายงานผลเป็นลายลักษณ์อักษร</p>
+        </div>
+      </li>
+      <li class="service-item reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="zap" width="20" height="20"></i></div>
+          <h3 data-lang-th="ซ่อมเครื่องยนต์และระบบส่งกำลัง" data-lang-en="Engine & Drivetrain Repair">ซ่อมเครื่องยนต์และระบบส่งกำลัง</h3>
+          <p data-lang-th="ตั้งแต่ปรับวาล์วไปจนถึงถอดเครื่องยนต์ทั้งหมด ครอบคลุมทั้ง N20, N54, S55, B58 และ M-Series" data-lang-en="From valve adjustments to full engine rebuilds. Covering N20, N54, S55, B58 and all M-Series powerplants.">ตั้งแต่ปรับวาล์วไปจนถึงถอดเครื่องยนต์ทั้งหมด ครอบคลุมทั้ง N20, N54, S55, B58 และ M-Series</p>
+        </div>
+      </li>
+      <li class="service-item reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="circle" width="20" height="20"></i></div>
+          <h3 data-lang-th="ระบบเบรก ช่วงล่าง และล้อ" data-lang-en="Brakes, Suspension & Wheels">ระบบเบรก ช่วงล่าง และล้อ</h3>
+          <p data-lang-th="เปลี่ยนผ้าเบรก จานเบรก โช้ค ปีกนก และ wheel alignment ด้วยอุปกรณ์ตั้งศูนย์ 3 มิติ ความแม่นยำสูง" data-lang-en="Brake pads, rotors, shock absorbers, control arms, and 3D four-wheel alignment to factory tolerances.">เปลี่ยนผ้าเบรก จานเบรก โช้ค ปีกนก และ wheel alignment ด้วยอุปกรณ์ตั้งศูนย์ 3 มิติ ความแม่นยำสูง</p>
+        </div>
+      </li>
+      <li class="service-item reveal reveal-delay-3">
+        <div class="service-num">04</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="thermometer" width="20" height="20"></i></div>
+          <h3 data-lang-th="ระบบระบายความร้อนและน้ำมันเครื่อง" data-lang-en="Cooling System & Fluid Services">ระบบระบายความร้อนและน้ำมันเครื่อง</h3>
+          <p data-lang-th="เปลี่ยนน้ำมันเครื่อง น้ำยาหม้อน้ำ น้ำมันเกียร์ DSG ตามสเปค BMW Longlife โดยเคร่งครัด" data-lang-en="Engine oil, coolant, DSG transmission fluid — all serviced to BMW Longlife specification with zero compromise.">เปลี่ยนน้ำมันเครื่อง น้ำยาหม้อน้ำ น้ำมันเกียร์ DSG ตามสเปค BMW Longlife โดยเคร่งครัด</p>
+        </div>
+      </li>
+      <li class="service-item reveal reveal-delay-4">
+        <div class="service-num">05</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="activity" width="20" height="20"></i></div>
+          <h3 data-lang-th="ตั้งค่าประสิทธิภาพและ ECU Tune" data-lang-en="Performance Tuning & ECU Remap">ตั้งค่าประสิทธิภาพและ ECU Tune</h3>
+          <p data-lang-th="เพิ่มพลังงานอย่างปลอดภัยผ่านการ remap แผนที่ ECU ด้วยซอฟต์แวร์มาตรฐาน ทดสอบบน Dyno ก่อนส่งมอบ" data-lang-en="Safe power gains through precision ECU remapping. All tunes are tested on our in-house Dyno before delivery.">เพิ่มพลังงานอย่างปลอดภัยผ่านการ remap แผนที่ ECU ด้วยซอฟต์แวร์มาตรฐาน ทดสอบบน Dyno ก่อนส่งมอบ</p>
+        </div>
+      </li>
+      <li class="service-item reveal reveal-delay-5">
+        <div class="service-num">06</div>
+        <div class="service-content">
+          <div class="service-icon"><i data-lucide="droplets" width="20" height="20"></i></div>
+          <h3 data-lang-th="รักษาสีและป้องกันตัวถัง" data-lang-en="Paint Protection & Detailing">รักษาสีและป้องกันตัวถัง</h3>
+          <p data-lang-th="ติดฟิล์ม PPF ฉีดเคลือบ Ceramic สำหรับรถ BMW ที่ต้องการรักษาคุณภาพของสีโรงงานระยะยาว" data-lang-en="PPF film installation and Ceramic coating application — preserving your factory finish for the long term.">ติดฟิล์ม PPF ฉีดเคลือบ Ceramic สำหรับรถ BMW ที่ต้องการรักษาคุณภาพของสีโรงงานระยะยาว</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- =============================================
+     PROCESS
+============================================= -->
+<section class="process section" id="process">
+  <div class="section-inner">
+    <div class="process-header">
+      <div class="section-marker reveal">
+        <span data-lang-th="ขั้นตอนการทำงาน" data-lang-en="HOW IT WORKS">ขั้นตอนการทำงาน</span>
+      </div>
+      <h2 class="reveal reveal-delay-1" data-lang-th="วิธีการทำงาน<br>ของเรา" data-lang-en="Our process.<br>No guesswork.">วิธีการทำงาน<br>ของเรา</h2>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-image">
+          <div class="process-step-num">01</div>
+          <img
+            src="https://images.unsplash.com/photo-1708063785769-43da3123684d?w=700&h=420&fit=crop"
+            alt="BMW engine diagnostic scan"
+          >
+        </div>
+        <div class="process-step-text">
+          <div class="process-step-label" data-lang-th="ขั้นตอนที่ 01" data-lang-en="STEP 01">ขั้นตอนที่ 01</div>
+          <h3 data-lang-th="รับรถและวินิจฉัยทั้งคัน" data-lang-en="Vehicle Intake & Full Scan">รับรถและวินิจฉัยทั้งคัน</h3>
+          <p data-lang-th="เมื่อคุณนำรถเข้ามา ทีมช่างจะทำการสแกนระบบทั้งหมดด้วย ISTA และตรวจสอบสภาพจริงพร้อมถ่ายภาพบันทึก คุณจะได้รับรายงานก่อนเราเริ่มงานใดๆ" data-lang-en="When your car arrives, we perform a complete ISTA system scan and physical condition check with photographic documentation. You receive a report before we touch anything.">เมื่อคุณนำรถเข้ามา ทีมช่างจะทำการสแกนระบบทั้งหมดด้วย ISTA และตรวจสอบสภาพจริงพร้อมถ่ายภาพบันทึก คุณจะได้รับรายงานก่อนเราเริ่มงานใดๆ</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-image">
+          <div class="process-step-num">02</div>
+          <img
+            src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=700&h=420&fit=crop"
+            alt="BMW technician inspection"
+          >
+        </div>
+        <div class="process-step-text">
+          <div class="process-step-label" data-lang-th="ขั้นตอนที่ 02" data-lang-en="STEP 02">ขั้นตอนที่ 02</div>
+          <h3 data-lang-th="เสนอราคาและอนุมัติงาน" data-lang-en="Transparent Quotation & Approval">เสนอราคาและอนุมัติงาน</h3>
+          <p data-lang-th="เราเสนอราคาชัดเจน ไม่มีค่าใช้จ่ายซ่อน แยกรายละเอียดค่าอะไหล่และค่าแรงทุกรายการ คุณอนุมัติก่อน เราจึงเริ่มงาน" data-lang-en="Clear pricing, zero hidden charges. Parts and labour broken down line by line. You approve everything before work begins.">เราเสนอราคาชัดเจน ไม่มีค่าใช้จ่ายซ่อน แยกรายละเอียดค่าอะไหล่และค่าแรงทุกรายการ คุณอนุมัติก่อน เราจึงเริ่มงาน</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-image">
+          <div class="process-step-num">03</div>
+          <img
+            src="https://images.unsplash.com/photo-1653163048173-4305f65cf3f3?w=700&h=420&fit=crop"
+            alt="BMW engine repair precision"
+          >
+        </div>
+        <div class="process-step-text">
+          <div class="process-step-label" data-lang-th="ขั้นตอนที่ 03" data-lang-en="STEP 03">ขั้นตอนที่ 03</div>
+          <h3 data-lang-th="ซ่อมด้วยความแม่นยำสูงสุด" data-lang-en="Precision Repair Execution">ซ่อมด้วยความแม่นยำสูงสุด</h3>
+          <p data-lang-th="ช่างผู้เชี่ยวชาญดำเนินการซ่อมตามขั้นตอนที่กำหนด ทุกขั้นตอนตรวจสอบซ้ำ ใช้เฉพาะอะไหล่แท้ BMW หรืออะไหล่เทียบเท่าที่ผ่านการรับรอง" data-lang-en="Our specialist technicians execute the repair to procedure. Every step double-checked. Only genuine BMW parts or certified equivalent — never compromise.">ช่างผู้เชี่ยวชาญดำเนินการซ่อมตามขั้นตอนที่กำหนด ทุกขั้นตอนตรวจสอบซ้ำ ใช้เฉพาะอะไหล่แท้ BMW หรืออะไหล่เทียบเท่าที่ผ่านการรับรอง</p>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-image">
+          <div class="process-step-num">04</div>
+          <img
+            src="https://images.unsplash.com/photo-1593648153282-4a8d4df995ea?w=700&h=420&fit=crop"
+            alt="BMW M3 quality check"
+          >
+        </div>
+        <div class="process-step-text">
+          <div class="process-step-label" data-lang-th="ขั้นตอนที่ 04" data-lang-en="STEP 04">ขั้นตอนที่ 04</div>
+          <h3 data-lang-th="ทดสอบและส่งมอบ" data-lang-en="Test Drive & Handover">ทดสอบและส่งมอบ</h3>
+          <p data-lang-th="ทุกคันผ่านการ road test จริง สแกนซ้ำหลังซ่อม และรับรองรับประกัน 3 เดือนหรือ 5,000 กม. แล้วแต่ว่าอะไรถึงก่อน" data-lang-en="Every car completes a real road test, a post-repair scan, and is covered by our 3-month / 5,000 km warranty — whichever comes first.">ทุกคันผ่านการ road test จริง สแกนซ้ำหลังซ่อม และรับรองรับประกัน 3 เดือนหรือ 5,000 กม. แล้วแต่ว่าอะไรถึงก่อน</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     GALLERY STRIP
+============================================= -->
+<div class="gallery-strip" id="gallery">
+  <div class="gallery-strip-header">
+    <div class="section-marker reveal">
+      <span data-lang-th="ผลงานของเรา" data-lang-en="OUR WORK">ผลงานของเรา</span>
+    </div>
+  </div>
+  <div class="gallery-scroll">
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1595787142842-7404bc60470d?w=400&h=520&fit=crop" alt="BMW engine close up">
+      <div class="gallery-item-caption" data-lang-th="เครื่องยนต์ N54 — ซ่อมใหญ่" data-lang-en="N54 Engine — Full rebuild">เครื่องยนต์ N54 — ซ่อมใหญ่</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1761044292083-69da797c814b?w=400&h=520&fit=crop" alt="BMW brake caliper detail">
+      <div class="gallery-item-caption" data-lang-th="เบรก M Performance — เปลี่ยนใหม่" data-lang-en="M Performance Brakes — Replaced">เบรก M Performance — เปลี่ยนใหม่</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1563969105242-37c55b40c5ae?w=400&h=520&fit=crop" alt="BMW in workshop">
+      <div class="gallery-item-caption" data-lang-th="BMW 3 Series — ซ่อมช่วงล่าง" data-lang-en="BMW 3 Series — Suspension overhaul">BMW 3 Series — ซ่อมช่วงล่าง</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1708063785769-43da3123684d?w=400&h=520&fit=crop" alt="Engine detail BMW">
+      <div class="gallery-item-caption" data-lang-th="B58 — Tune และ ECU remap" data-lang-en="B58 — Performance tune & remap">B58 — Tune และ ECU remap</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1593648153282-4a8d4df995ea?w=400&h=520&fit=crop" alt="BMW M3 silver">
+      <div class="gallery-item-caption" data-lang-th="BMW M3 — เคลือบ Ceramic เต็มคัน" data-lang-en="BMW M3 — Full Ceramic coating">BMW M3 — เคลือบ Ceramic เต็มคัน</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1533630217389-3a5e4dff5683?w=400&h=520&fit=crop" alt="BMW steering wheel interior">
+      <div class="gallery-item-caption" data-lang-th="ห้องโดยสาร — บำรุงรักษาและทำความสะอาด" data-lang-en="Interior — Restoration & detailing">ห้องโดยสาร — บำรุงรักษาและทำความสะอาด</div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     WHY US
+============================================= -->
+<section class="why-us" id="why">
+  <div class="section-inner">
+    <div class="why-us-header">
+      <div class="section-marker reveal">
+        <span data-lang-th="ทำไมต้องช่างฮาน" data-lang-en="WHY CHANG HAN">ทำไมต้องช่างฮาน</span>
+      </div>
+      <h2 class="reveal reveal-delay-1" data-lang-th="ความแตกต่าง<br>ที่วัดได้" data-lang-en="The difference<br>you can measure">ความแตกต่าง<br>ที่วัดได้</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><i data-lucide="shield-check" width="28" height="28"></i></div>
+        <h3 data-lang-th="เชี่ยวชาญ BMW เท่านั้น" data-lang-en="BMW Exclusive">เชี่ยวชาญ BMW เท่านั้น</h3>
+        <p data-lang-th="เราไม่ซ่อมรถยี่ห้ออื่น การโฟกัสเดียวทำให้ความรู้ของเราลึกกว่าช่างทั่วไปมาก" data-lang-en="We work on no other marque. Single-focus expertise means depth that multi-brand shops cannot match.">เราไม่ซ่อมรถยี่ห้ออื่น การโฟกัสเดียวทำให้ความรู้ของเราลึกกว่าช่างทั่วไปมาก</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon"><i data-lucide="file-check" width="28" height="28"></i></div>
+        <h3 data-lang-th="ราคาโปร่งใสทุกรายการ" data-lang-en="100% Transparent Pricing">ราคาโปร่งใสทุกรายการ</h3>
+        <p data-lang-th="ทุกรายการแจ้งก่อนลงมือซ่อม ไม่มีค่าใช้จ่ายเพิ่มเติมที่ไม่ได้แจ้ง ไม่เคย" data-lang-en="Every item quoted before work begins. No surprise additions. Ever.">ทุกรายการแจ้งก่อนลงมือซ่อม ไม่มีค่าใช้จ่ายเพิ่มเติมที่ไม่ได้แจ้ง ไม่เคย</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon"><i data-lucide="award" width="28" height="28"></i></div>
+        <h3 data-lang-th="รับประกันทุกงาน" data-lang-en="Warranty on All Work">รับประกันทุกงาน</h3>
+        <p data-lang-th="ทุกงานซ่อมมีรับประกัน 3 เดือน หรือ 5,000 กม. เพราะเราเชื่อมั่นในทุกสิ่งที่เราทำ" data-lang-en="3-month / 5,000 km warranty on all repairs. We stand behind every bolt we tighten.">ทุกงานซ่อมมีรับประกัน 3 เดือน หรือ 5,000 กม. เพราะเราเชื่อมั่นในทุกสิ่งที่เราทำ</p>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon"><i data-lucide="clock" width="28" height="28"></i></div>
+        <h3 data-lang-th="ตรงเวลาทุกครั้ง" data-lang-en="On Time. Every Time.">ตรงเวลาทุกครั้ง</h3>
+        <p data-lang-th="เราเคารพเวลาของคุณเหมือนที่เราเคารพรถของคุณ ระบบจองคิวของเราออกแบบมาเพื่อไม่ให้คุณรอโดยไม่จำเป็น" data-lang-en="We respect your time as much as your car. Our appointment system is engineered to eliminate unnecessary waiting.">เราเคารพเวลาของคุณเหมือนที่เราเคารพรถของคุณ ระบบจองคิวของเราออกแบบมาเพื่อไม่ให้คุณรอโดยไม่จำเป็น</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     TESTIMONIALS
+============================================= -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header">
+      <div class="section-marker reveal">
+        <span data-lang-th="เสียงจากลูกค้า" data-lang-en="CLIENT REVIEWS">เสียงจากลูกค้า</span>
+      </div>
+      <h2 class="reveal reveal-delay-1" data-lang-th="ลูกค้าบอก<br>ได้ดีที่สุด" data-lang-en="Our clients say<br>it best">ลูกค้าบอก<br>ได้ดีที่สุด</h2>
+    </div>
+
+    <div class="testimonials-list">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text" data-lang-th="เคยใช้ศูนย์ BMW มาหลายที่ แต่ช่างฮานคือที่แรกที่รู้สึกว่าช่างเข้าใจรถเราจริงๆ ไม่ใช่แค่สแกนแล้วเปลี่ยนอะไหล่ตามโค้ด" data-lang-en="I've used several BMW centres over the years. Chang Han is the first where I felt the technician truly understood the car — not just scan-and-replace.">เคยใช้ศูนย์ BMW มาหลายที่ แต่ช่างฮานคือที่แรกที่รู้สึกว่าช่างเข้าใจรถเราจริงๆ ไม่ใช่แค่สแกนแล้วเปลี่ยนอะไหล่ตามโค้ด</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">
+            <i data-lucide="user" width="18" height="18"></i>
+          </div>
+          <div>
+            <div class="testimonial-name">คุณวิทยา ศรีอุดม</div>
+            <div class="testimonial-detail">BMW M340i xDrive</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text" data-lang-th="เอา M3 F80 ไปทำ ECU remap ผลออกมาดีกว่าที่คาดมาก แรงขึ้นชัดเจนแต่รถยังนิ่งและไว้ใจได้ในทุกสถานการณ์" data-lang-en="Brought my F80 M3 in for an ECU remap. The result exceeded expectations — power gain is clear but the car still feels composed and safe in all conditions.">เอา M3 F80 ไปทำ ECU remap ผลออกมาดีกว่าที่คาดมาก แรงขึ้นชัดเจนแต่รถยังนิ่งและไว้ใจได้ในทุกสถานการณ์</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">
+            <i data-lucide="user" width="18" height="18"></i>
+          </div>
+          <div>
+            <div class="testimonial-name">คุณณัฐพล เจริญสุข</div>
+            <div class="testimonial-detail">BMW M3 F80 Competition</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text" data-lang-th="ราคาโปร่งใส มีรายละเอียดทุกอย่างก่อนเริ่มงาน ช่างอธิบายเป็นขั้นตอนชัดเจน ทำให้รู้สึกมั่นใจมากที่ฝากรถไว้" data-lang-en="Pricing is completely transparent — full breakdown before any work starts. The technician walked me through every step. I trust these people completely.">ราคาโปร่งใส มีรายละเอียดทุกอย่างก่อนเริ่มงาน ช่างอธิบายเป็นขั้นตอนชัดเจน ทำให้รู้สึกมั่นใจมากที่ฝากรถไว้</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">
+            <i data-lucide="user" width="18" height="18"></i>
+          </div>
+          <div>
+            <div class="testimonial-name">คุณสิริมา พงศ์วิวัฒน์</div>
+            <div class="testimonial-detail">BMW 530e Plug-in Hybrid</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text" data-lang-th="พาเข้าไปซ่อมช่วงล่างทั้งหมด ออกมาแล้วรถกลับมาเหมือนใหม่อีกครั้ง รู้สึกได้ทันทีตั้งแต่ออกจากอู่" data-lang-en="Full suspension overhaul. When I drove out, the car felt brand new again. I felt the difference the moment I left the workshop.">พาเข้าไปซ่อมช่วงล่างทั้งหมด ออกมาแล้วรถกลับมาเหมือนใหม่อีกครั้ง รู้สึกได้ทันทีตั้งแต่ออกจากอู่</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">
+            <i data-lucide="user" width="18" height="18"></i>
+          </div>
+          <div>
+            <div class="testimonial-name">คุณธนกร ลิมปิยะพงษ์</div>
+            <div class="testimonial-detail">BMW X5 M50i</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+            <i data-lucide="star" width="14" height="14"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     CTA SECTION
+============================================= -->
+<section class="cta-section">
+  <div class="cta-bg-img">
+    <img
+      src="https://images.unsplash.com/photo-1613214150132-9606e332d68e?w=1600&h=700&fit=crop"
+      alt="BMW cinematic dark background"
+    >
+  </div>
+  <div class="cta-overlay"></div>
+  <div class="section-inner cta-content">
+    <div class="section-marker reveal" style="justify-content: center;">
+      <span data-lang-th="พร้อมที่จะเริ่ม" data-lang-en="READY TO START">พร้อมที่จะเริ่ม</span>
+    </div>
+    <h2 class="reveal reveal-delay-1" data-lang-th="รถ BMW ของคุณ<br>สมควรได้รับสิ่งที่ดีที่สุด" data-lang-en="Your BMW<br>deserves the best">รถ BMW ของคุณ<br>สมควรได้รับสิ่งที่ดีที่สุด</h2>
+    <p class="reveal reveal-delay-2" data-lang-th="จองนัดล่วงหน้าง่ายๆ ทีมของเราพร้อมให้คำปรึกษาและดูแลรถคุณด้วยมาตรฐานสูงสุด" data-lang-en="Book an appointment today. Our team is ready to consult and care for your car to the highest standard.">จองนัดล่วงหน้าง่ายๆ ทีมของเราพร้อมให้คำปรึกษาและดูแลรถคุณด้วยมาตรฐานสูงสุด</p>
+    <div class="cta-actions reveal reveal-delay-3">
+      <a href="#contact" class="btn-primary">
+        <i data-lucide="calendar" width="16" height="16"></i>
+        <span data-lang-th="จองคิวตอนนี้" data-lang-en="Book Now">จองคิวตอนนี้</span>
+      </a>
+      <a href="tel:+66812345678" class="btn-secondary">
+        <i data-lucide="phone" width="16" height="16"></i>
+        <span data-lang-th="โทรหาเรา" data-lang-en="Call Us">โทรหาเรา</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     CONTACT
+============================================= -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-marker reveal">
+        <span data-lang-th="ติดต่อเรา" data-lang-en="CONTACT US">ติดต่อเรา</span>
+      </div>
+      <h2 class="reveal reveal-delay-1" data-lang-th="มาพบเราหรือ<br>ส่งข้อความมา" data-lang-en="Visit us or<br>drop us a message">มาพบเราหรือ<br>ส่งข้อความมา</h2>
+      <p class="reveal reveal-delay-2" data-lang-th="ยินดีให้คำปรึกษาเบื้องต้นโดยไม่มีค่าใช้จ่าย เพียงแจ้งรุ่นรถและอาการที่พบ ทีมงานจะติดต่อกลับภายใน 2 ชั่วโมง" data-lang-en="Free initial consultation. Just tell us your model and symptoms. Our team will respond within 2 hours.">ยินดีให้คำปรึกษาเบื้องต้นโดยไม่มีค่าใช้จ่าย เพียงแจ้งรุ่นรถและอาการที่พบ ทีมงานจะติดต่อกลับภายใน 2 ชั่วโมง</p>
+
+      <div class="contact-details">
+        <div class="contact-detail-item reveal reveal-delay-2">
+          <div class="contact-detail-icon"><i data-lucide="map-pin" width="20" height="20"></i></div>
+          <div>
+            <div class="contact-detail-label" data-lang-th="ที่อยู่" data-lang-en="ADDRESS">ที่อยู่</div>
+            <div class="contact-detail-value" data-lang-th="89/4 ซอยลาดพร้าว 101 แขวงคลองจั่น เขตบางกะปิ กรุงเทพฯ 10240" data-lang-en="89/4 Soi Lat Phrao 101, Khlong Chan, Bang Kapi, Bangkok 10240">89/4 ซอยลาดพร้าว 101 แขวงคลองจั่น เขตบางกะปิ กรุงเทพฯ 10240</div>
+          </div>
+        </div>
+        <div class="contact-detail-item reveal reveal-delay-3">
+          <div class="contact-detail-icon"><i data-lucide="phone" width="20" height="20"></i></div>
+          <div>
+            <div class="contact-detail-label" data-lang-th="โทรศัพท์" data-lang-en="PHONE">โทรศัพท์</div>
+            <div class="contact-detail-value">081-234-5678</div>
+          </div>
+        </div>
+        <div class="contact-detail-item reveal reveal-delay-4">
+          <div class="contact-detail-icon"><i data-lucide="clock" width="20" height="20"></i></div>
+          <div>
+            <div class="contact-detail-label" data-lang-th="เวลาทำการ" data-lang-en="HOURS">เวลาทำการ</div>
+            <div class="contact-detail-value" data-lang-th="จันทร์–เสาร์ 08:00–18:00 น.<br>อาทิตย์ ปิดทำการ" data-lang-en="Mon–Sat 08:00–18:00<br>Sunday Closed">จันทร์–เสาร์ 08:00–18:00 น.<br>อาทิตย์ ปิดทำการ</div>
+          </div>
+        </div>
+        <div class="contact-detail-item reveal reveal-delay-5">
+          <div class="contact-detail-icon"><i data-lucide="message-circle" width="20" height="20"></i></div>
+          <div>
+            <div class="contact-detail-label">LINE</div>
+            <div class="contact-detail-value">@changhan.bmw</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form class="contact-form reveal" onsubmit="return false;">
+        <div class="form-group">
+          <label data-lang-th="ชื่อ-นามสกุล" data-lang-en="Full Name">ชื่อ-นามสกุล</label>
+          <input type="text" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <label data-lang-th="เบอร์โทรศัพท์" data-lang-en="Phone Number">เบอร์โทรศัพท์</label>
+          <input type="tel" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <label data-lang-th="รุ่นรถ BMW" data-lang-en="BMW Model">รุ่นรถ BMW</label>
+          <select>
+            <option value="" data-lang-th="เลือกรุ่น" data-lang-en="Select Model">เลือกรุ่น</option>
+            <option>BMW 3 Series</option>
+            <option>BMW 4 Series</option>
+            <option>BMW 5 Series</option>
+            <option>BMW 7 Series</option>
+            <option>BMW X3</option>
+            <option>BMW X5</option>
+            <option>BMW X7</option>
+            <option>BMW M2</option>
+            <option>BMW M3</option>
+            <option>BMW M4</option>
+            <option>BMW M5</option>
+            <option data-lang-th="รุ่นอื่นๆ" data-lang-en="Other">รุ่นอื่นๆ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-lang-th="บริการที่สนใจ" data-lang-en="Service Required">บริการที่สนใจ</label>
+          <select>
+            <option value="" data-lang-th="เลือกบริการ" data-lang-en="Select Service">เลือกบริการ</option>
+            <option data-lang-th="วินิจฉัยและโปรแกรมระบบ" data-lang-en="Diagnostics & ECU Programming">วินิจฉัยและโปรแกรมระบบ</option>
+            <option data-lang-th="ซ่อมเครื่องยนต์" data-lang-en="Engine Repair">ซ่อมเครื่องยนต์</option>
+            <option data-lang-th="ระบบเบรกและช่วงล่าง" data-lang-en="Brakes & Suspension">ระบบเบรกและช่วงล่าง</option>
+            <option data-lang-th="ตั้งค่าประสิทธิภาพ" data-lang-en="Performance Tuning">ตั้งค่าประสิทธิภาพ</option>
+            <option data-lang-th="รักษาสีและป้องกันตัวถัง" data-lang-en="Paint Protection">รักษาสีและป้องกันตัวถัง</option>
+            <option data-lang-th="บริการอื่นๆ" data-lang-en="Other">บริการอื่นๆ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-lang-th="รายละเอียดเพิ่มเติม" data-lang-en="Additional Details">รายละเอียดเพิ่มเติม</label>
+          <textarea rows="4" placeholder=""></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+          <i data-lucide="send" width="16" height="16"></i>
+          <span data-lang-th="ส่งข้อมูลจองคิว" data-lang-en="Send Booking Request">ส่งข้อมูลจองคิว</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     FOOTER
+============================================= -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><span>CHANG</span>HAN</div>
+        <div class="footer-tagline" data-lang-th="ศูนย์ซ่อมบำรุง BMW เฉพาะทาง<br>ความแม่นยำระดับโรงงาน ตั้งแต่ปี 2009" data-lang-en="BMW Exclusive Specialist Workshop<br>Factory-level precision since 2009">ศูนย์ซ่อมบำรุง BMW เฉพาะทาง<br>ความแม่นยำระดับโรงงาน ตั้งแต่ปี 2009</div>
+      </div>
+      <nav class="footer-nav">
+        <h4 data-lang-th="บริการ" data-lang-en="SERVICES">บริการ</h4>
+        <ul>
+          <li><a href="#services" data-lang-th="วินิจฉัยระบบ" data-lang-en="Diagnostics">วินิจฉัยระบบ</a></li>
+          <li><a href="#services" data-lang-th="ซ่อมเครื่องยนต์" data-lang-en="Engine Repair">ซ่อมเครื่องยนต์</a></li>
+          <li><a href="#services" data-lang-th="ช่วงล่างและเบรก" data-lang-en="Suspension & Brakes">ช่วงล่างและเบรก</a></li>
+          <li><a href="#services" data-lang-th="ปรับแต่งสมรรถนะ" data-lang-en="Performance Tuning">ปรับแต่งสมรรถนะ</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav">
+        <h4 data-lang-th="ข้อมูล" data-lang-en="INFO">ข้อมูล</h4>
+        <ul>
+          <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+          <li><a href="#process" data-lang-th="ขั้นตอนการทำงาน" data-lang-en="Our Process">ขั้นตอนการทำงาน</a></li>
+          <li><a href="#gallery" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a></li>
+          <li><a href="#contact" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy" data-lang-th="© 2026 ช่างฮาน. สงวนลิขสิทธิ์ทุกประการ." data-lang-en="© 2026 Chang Han. All rights reserved.">© 2026 ช่างฮาน. สงวนลิขสิทธิ์ทุกประการ.</div>
+      <div class="footer-copy" style="color: var(--border);" data-lang-th="BMW® เป็นเครื่องหมายการค้าจดทะเบียนของ BMW AG ไม่มีความเกี่ยวข้องอย่างเป็นทางการ" data-lang-en="BMW® is a registered trademark of BMW AG. No official affiliation implied.">BMW® เป็นเครื่องหมายการค้าจดทะเบียนของ BMW AG ไม่มีความเกี่ยวข้องอย่างเป็นทางการ</div>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================================
+     JAVASCRIPT
+============================================= -->
+<script>
+// Navbar scroll effect
+var navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 60) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// Hero parallax
+var heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', function() {
+  if (heroBg && window.scrollY < window.innerHeight) {
+    heroBg.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+  }
+}, { passive: true });
+
+// Hamburger / mobile menu
+var hamburger = document.getElementById('hamburger');
+var mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-link').forEach(function(link) {
+  link.addEventListener('click', function() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Scroll reveal
+var revealEls = document.querySelectorAll('.reveal, .reveal-left');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach(function(el) { observer.observe(el); });
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<!-- Language switcher (exact provided script) -->
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
