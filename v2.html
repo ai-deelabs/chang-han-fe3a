@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ช่างฮาน — ศูนย์บริการ BMW เชี่ยวชาญเฉพาะทาง</title>
+<meta name="description" content="ช่างฮาน ศูนย์บริการซ่อมรถ BMW เชี่ยวชาญเฉพาะทาง ด้วยประสบการณ์กว่า 15 ปี วินิจฉัยแม่นยำ ซ่อมได้จริง">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+:root {
+  --background: #121212;
+  --card: #1c1c1c;
+  --bg-accent: #1a1600;
+  --foreground: #F5F0DC;
+  --muted: #8A8070;
+  --border: #2E2A1A;
+  --primary: #F5C400;
+  --secondary: #2A2618;
+  --accent: #E8A800;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'IBM Plex Sans Thai', 'Sukhumvit Set', sans-serif;
+  --font-heading: 'Mitr', 'Sukhumvit Set', sans-serif;
+  --font-body: 'IBM Plex Sans Thai', 'Sukhumvit Set', sans-serif;
+  line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+/* GRID OVERLAY — design element */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================== TYPOGRAPHY ===================== */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 0.72em;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+/* ===================== UTILITY ===================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.yellow { color: var(--primary); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--background);
+  border-bottom: 2px solid var(--primary);
+  transition: padding 0.3s ease;
+  padding: 0.75rem 0;
+}
+
+.navbar.scrolled {
+  padding: 0.4rem 0;
+  background: rgba(18,18,18,0.97);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.nav-logo span.logo-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+.nav-logo strong {
+  color: var(--primary);
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  display: block;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--primary); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Language switcher */
+.lang-sw {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.lang-sw:hover { color: var(--primary); border-color: var(--primary); }
+.lang-sw svg { display: block; flex-shrink: 0; }
+
+/* Hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+@media (min-width: 768px) { .hamburger { display: none; } }
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--background);
+  border-bottom: 2px solid var(--primary);
+  padding: 1rem 1.25rem;
+  gap: 0;
+}
+.mobile-menu.open { display: flex; }
+@media (min-width: 768px) { .mobile-menu { display: none !important; } }
+
+.mobile-menu a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+  display: block;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--primary); }
+
+/* ===================== HERO ===================== */
+.hero {
+  min-height: 100svh;
+  padding-top: 80px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
+
+.hero-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    min-height: 100svh;
+    align-items: stretch;
+  }
+  .hero-image-wrap {
+    height: auto;
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.05);
+  animation: heroZoom 8s ease-out forwards;
+  filter: brightness(0.6) contrast(1.1);
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1.0); }
+}
+
+/* Duotone overlay on hero image */
+.hero-image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(245,196,0,0.18) 0%, rgba(18,18,18,0.55) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 3rem;
+  background: var(--background);
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .hero-content {
+    padding: 5rem 4rem 5rem 2rem;
+    clip-path: polygon(0% 0%, 95% 0%, 100% 100%, 0% 100%);
+    margin-right: -4%;
+  }
+}
+
+.hero-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--primary);
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 8vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--foreground);
+  margin-bottom: 1.25rem;
+}
+
+.hero h1 .accent-line {
+  display: block;
+  color: var(--primary);
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+  background: var(--card);
+}
+.stat-cell {
+  padding: 1rem 0.75rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: block;
+  line-height: 1.2;
+}
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.2rem;
+  line-height: 1.6;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .btn-group { flex-direction: row; flex-wrap: wrap; }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: #121212;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+  min-height: 48px;
+  border: 2px solid var(--primary);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  border: 2px solid var(--border);
+  transition: border-color 0.25s, color 0.25s;
+  min-height: 48px;
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ===================== SECTION COMMON ===================== */
+.section {
+  padding: 5rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--primary);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--primary);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+/* ===================== DIAGNOSTIC BAND ===================== */
+.diag-band {
+  background: var(--primary);
+  padding: 0.6rem 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.diag-ticker {
+  display: flex;
+  gap: 3rem;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.diag-ticker span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #121212;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.diag-ticker span i { width: 14px; height: 14px; }
+
+/* ===================== SERVICES ===================== */
+.services-section {
+  background: var(--background);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.service-item {
+  padding: 2rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: background 0.25s;
+  overflow: hidden;
+}
+.service-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 0;
+  background: var(--primary);
+  transition: height 0.35s ease;
+}
+.service-item:hover { background: var(--card); }
+.service-item:hover::before { height: 100%; }
+
+@media (min-width: 768px) {
+  .service-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .service-item:nth-child(n+5) { border-bottom: none; }
+}
+@media (max-width: 767px) {
+  .service-item:last-child { border-bottom: none; }
+}
+
+.service-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.service-num i { color: var(--primary); width: 16px; height: 16px; }
+
+.service-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+.service-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+/* ===================== PROCESS SECTION ===================== */
+.process-section {
+  background: var(--bg-accent);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.process-steps {
+  margin-top: 2.5rem;
+  position: relative;
+}
+
+/* Vertical line on desktop */
+@media (min-width: 768px) {
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+}
+
+.process-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.process-step:last-child { border-bottom: none; }
+.process-step.visible { opacity: 1; transform: translateX(0); }
+
+.step-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #121212;
+  background: var(--primary);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-body {}
+.step-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+.step-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+/* ===================== ABOUT / WORKSHOP SCHEMATIC ===================== */
+.about-section {
+  background: var(--background);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.about-image-wrap {
+  position: relative;
+}
+.about-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.8) contrast(1.1);
+}
+
+/* Offset label tag */
+.about-image-wrap::before {
+  content: 'SYS.014 / TECHNICIAN';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: #121212;
+  background: var(--primary);
+  padding: 0.3rem 0.6rem;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  z-index: 2;
+}
+
+.about-corner {
+  position: absolute;
+  bottom: -12px;
+  right: -12px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--primary);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-body {}
+.about-lead {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+.about-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+}
+
+.cert-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.cert-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--foreground);
+  line-height: 1.7;
+  transition: background 0.2s;
+}
+.cert-list li:last-child { border-bottom: none; }
+.cert-list li:hover { background: var(--card); }
+.cert-list li i { color: var(--primary); width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ===================== GALLERY SECTION ===================== */
+.gallery-section {
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .gallery-track {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+.gallery-cell {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+}
+
+@media (min-width: 768px) {
+  .gallery-cell:first-child {
+    grid-row: 1 / 3;
+  }
+}
+
+.gallery-cell img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(30%) brightness(0.85) contrast(1.1);
+  transition: transform 0.5s ease, filter 0.4s;
+}
+.gallery-cell:first-child img {
+  height: 300px;
+}
+@media (min-width: 768px) {
+  .gallery-cell img { height: 280px; }
+  .gallery-cell:first-child img { height: 100%; min-height: 560px; }
+}
+.gallery-cell:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) brightness(0.9) contrast(1.1);
+}
+
+.gallery-cell-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(18,18,18,0.85));
+  padding: 1.5rem 0.85rem 0.65rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+/* ===================== TESTIMONIALS ===================== */
+.testimonials-section {
+  background: var(--bg-accent);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.testimonials-wrap {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .testimonials-wrap {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.testimonial-card.visible { opacity: 1; transform: translateY(0); }
+
+.testimonial-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.testimonial-name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+.testimonial-car {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+.testimonial-stars {
+  display: flex;
+  gap: 2px;
+  color: var(--primary);
+}
+.testimonial-stars i { width: 14px; height: 14px; }
+
+.testimonial-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* ===================== CONTACT SECTION ===================== */
+.contact-section {
+  background: var(--background);
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.contact-info-block {}
+.contact-info-block h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.info-row:last-child { border-bottom: none; }
+.info-icon { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+.info-icon i { width: 18px; height: 18px; }
+.info-body {}
+.info-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+.info-val {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--foreground);
+  line-height: 1.8;
+}
+.info-val a { color: var(--primary); text-decoration: none; }
+.info-val a:hover { text-decoration: underline; }
+
+/* Hours table */
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+.hours-table tr {
+  border-bottom: 1px solid var(--border);
+}
+.hours-table tr:last-child { border-bottom: none; }
+.hours-table td {
+  padding: 0.6rem 0;
+  color: var(--foreground);
+  line-height: 1.7;
+}
+.hours-table td:first-child { color: var(--muted); }
+.hours-table td.closed { color: var(--muted); font-style: italic; }
+
+/* Contact form */
+.contact-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+}
+.form-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--background);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 1.25rem;
+  outline: none;
+  transition: border-color 0.2s;
+  min-height: 44px;
+  line-height: 1.6;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--primary);
+}
+.form-textarea {
+  height: 120px;
+  resize: vertical;
+}
+.form-select option {
+  background: var(--background);
+  color: var(--foreground);
+}
+.form-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* ===================== MAP / LOCATION STRIP ===================== */
+.location-strip {
+  background: var(--primary);
+  padding: 1.25rem 0;
+}
+.location-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.location-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #121212;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.75;
+}
+.location-text i { width: 18px; height: 18px; color: #121212; flex-shrink: 0; margin-top: 3px; }
+.location-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #121212;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #121212;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.location-btn i { width: 14px; height: 14px; }
+.location-btn:hover { background: #121212; color: var(--primary); }
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: var(--background);
+  border-top: 2px solid var(--primary);
+  padding: 3rem 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
+}
+
+.footer-brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--foreground);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+.footer-brand-name strong { color: var(--primary); }
+.footer-brand-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.footer-brand-desc {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.footer-col-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.footer-links li a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.45rem 0;
+  display: block;
+  transition: color 0.2s;
+  line-height: 1.7;
+}
+.footer-links li a:hover { color: var(--primary); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== SCROLL TO TOP ===================== */
+.scroll-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 90;
+}
+.scroll-top.visible { opacity: 1; pointer-events: auto; }
+.scroll-top i { width: 20px; height: 20px; }
+
+/* ===================== UTILITY ANIMATIONS ===================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="ช่างฮาน">
+      <span class="logo-sub">BMW SPECIALIST</span>
+      <span>ช่างฮาน <strong>/ Chang Han</strong></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a></li>
+      <li><a href="#process" data-lang-th="ขั้นตอน" data-lang-en="Process">ขั้นตอน</a></li>
+      <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+      <li><a href="#contact" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="lang-sw" aria-label="Switch language">
+        <i data-lucide="globe" width="14" height="14"></i>
+        <span class="lang-sw__label">TH</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="#services" data-lang-th="บริการของเรา" data-lang-en="Our Services">บริการของเรา</a>
+    <a href="#process" data-lang-th="ขั้นตอนการซ่อม" data-lang-en="Repair Process">ขั้นตอนการซ่อม</a>
+    <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About Us">เกี่ยวกับเรา</a>
+    <a href="#gallery" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a>
+    <a href="#contact" data-lang-th="ติดต่อ / นัดหมาย" data-lang-en="Contact / Book">ติดต่อ / นัดหมาย</a>
+  </nav>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="mono" data-lang-th="DIAG.REF: CHH-BMW-SPEC" data-lang-en="DIAG.REF: CHH-BMW-SPEC">DIAG.REF: CHH-BMW-SPEC</span>
+    </div>
+    <h1>
+      <span data-lang-th="ซ่อม BMW" data-lang-en="BMW Repair">ซ่อม BMW</span>
+      <span class="accent-line" data-lang-th="ที่รู้จริง" data-lang-en="Done Right">ที่รู้จริง</span>
+    </h1>
+    <p class="hero-desc" data-lang-th="ช่างฮาน เชี่ยวชาญ BMW ทุกรุ่น ทุกปัญหา ตั้งแต่การวินิจฉัยเครื่องยนต์ด้วยอุปกรณ์มืออาชีพ ไปจนถึงการซ่อมใหญ่ระดับ Series 1–7, X-Series, M-Series ด้วยประสบการณ์กว่า 15 ปี" data-lang-en="Chang Han specializes exclusively in BMW — every model, every fault code, from precision diagnostics to full engine rebuilds covering Series 1–7, X-Series, and M-Series. 15 years of uncompromised expertise.">ช่างฮาน เชี่ยวชาญ BMW ทุกรุ่น ทุกปัญหา ตั้งแต่การวินิจฉัยเครื่องยนต์ด้วยอุปกรณ์มืออาชีพ ไปจนถึงการซ่อมใหญ่ระดับ Series 1–7, X-Series, M-Series ด้วยประสบการณ์กว่า 15 ปี</p>
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <span class="stat-num">15+</span>
+        <span class="stat-label" data-lang-th="ปีประสบการณ์" data-lang-en="Years Experience">ปีประสบการณ์</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">3,400+</span>
+        <span class="stat-label" data-lang-th="คันที่ซ่อมแล้ว" data-lang-en="BMWs Serviced">คันที่ซ่อมแล้ว</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">98%</span>
+        <span class="stat-label" data-lang-th="ลูกค้ากลับมาอีก" data-lang-en="Return Rate">ลูกค้ากลับมาอีก</span>
+      </div>
+    </div>
+    <div class="btn-group">
+      <a href="#contact" class="btn-primary">
+        <i data-lucide="calendar" style="width:16px;height:16px;"></i>
+        <span data-lang-th="นัดหมายตรวจเช็ค" data-lang-en="Book Inspection">นัดหมายตรวจเช็ค</span>
+      </a>
+      <a href="#services" class="btn-secondary">
+        <i data-lucide="wrench" style="width:16px;height:16px;"></i>
+        <span data-lang-th="ดูบริการทั้งหมด" data-lang-en="View Services">ดูบริการทั้งหมด</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-image-wrap">
+    <img src="https://images.unsplash.com/photo-1680298255666-6071fc905870?w=900&h=1100&fit=crop" alt="BMW parked in workshop">
+  </div>
+</section>
+
+<!-- ============ DIAGNOSTIC TICKER BAND ============ -->
+<div class="diag-band" aria-hidden="true">
+  <div class="diag-ticker" id="ticker-track">
+    <span><i data-lucide="activity"></i> SYSTEM READY</span>
+    <span><i data-lucide="cpu"></i> ISTA+ DIAGNOSTIC</span>
+    <span><i data-lucide="check-circle"></i> OEM PARTS ONLY</span>
+    <span><i data-lucide="shield"></i> WARRANTY COVERED</span>
+    <span><i data-lucide="zap"></i> BMW SPECIALIST</span>
+    <span><i data-lucide="tool"></i> SERIES 1–7 / M / X</span>
+    <span><i data-lucide="activity"></i> SYSTEM READY</span>
+    <span><i data-lucide="cpu"></i> ISTA+ DIAGNOSTIC</span>
+    <span><i data-lucide="check-circle"></i> OEM PARTS ONLY</span>
+    <span><i data-lucide="shield"></i> WARRANTY COVERED</span>
+    <span><i data-lucide="zap"></i> BMW SPECIALIST</span>
+    <span><i data-lucide="tool"></i> SERIES 1–7 / M / X</span>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section class="section services-section" id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><span class="mono" data-lang-th="MODULE.02 / SERVICES" data-lang-en="MODULE.02 / SERVICES">MODULE.02 / SERVICES</span></div>
+      <h2 class="section-title" data-lang-th="บริการครบวงจร สำหรับ BMW" data-lang-en="Full-Spectrum BMW Services">บริการครบวงจร สำหรับ BMW</h2>
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:var(--muted);line-height:1.9;max-width:560px;" data-lang-th="เราไม่ใช่อู่ทั่วไป — ทุกอย่างที่เราทำมุ่งเน้น BMW โดยเฉพาะ ตั้งแต่ไฟเตือนขึ้น ไปจนถึงเสียงผิดปกติที่ได้ยินแค่ตอนเร่งเครื่อง เราวินิจฉัยได้แม่นยำ ซ่อมได้จริง" data-lang-en="We are not a general garage. Everything we do is focused exclusively on BMW — from check engine lights to the rattle you only hear at 3,000 RPM. We diagnose accurately, repair correctly.">เราไม่ใช่อู่ทั่วไป — ทุกอย่างที่เราทำมุ่งเน้น BMW โดยเฉพาะ ตั้งแต่ไฟเตือนขึ้น ไปจนถึงเสียงผิดปกติที่ได้ยินแค่ตอนเร่งเครื่อง เราวินิจฉัยได้แม่นยำ ซ่อมได้จริง</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="cpu"></i><span>SVC-001</span></div>
+        <h3 class="service-title" data-lang-th="วินิจฉัยระบบ ISTA+" data-lang-en="ISTA+ System Diagnostics">วินิจฉัยระบบ ISTA+</h3>
+        <p class="service-desc" data-lang-th="อ่านรหัสความผิดพลาดด้วยซอฟต์แวร์ ISTA+ ระดับ Dealer พร้อมรายงานผลเป็นลายลักษณ์อักษรทุกครั้ง" data-lang-en="Read fault codes with factory-level ISTA+ software. Full written report provided on every diagnostic session.">อ่านรหัสความผิดพลาดด้วยซอฟต์แวร์ ISTA+ ระดับ Dealer พร้อมรายงานผลเป็นลายลักษณ์อักษรทุกครั้ง</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="droplets"></i><span>SVC-002</span></div>
+        <h3 class="service-title" data-lang-th="เปลี่ยนถ่ายน้ำมันเครื่อง" data-lang-en="Engine Oil Service">เปลี่ยนถ่ายน้ำมันเครื่อง</h3>
+        <p class="service-desc" data-lang-th="ใช้น้ำมันที่ได้รับการรับรอง BMW Longlife ทุก Grade ตามมาตรฐาน LL-01, LL-04 ตรงตามสเปกโรงงาน" data-lang-en="BMW Longlife approved oil every time — LL-01, LL-04 specifications matched precisely to your vehicle build date and engine variant.">ใช้น้ำมันที่ได้รับการรับรอง BMW Longlife ทุก Grade ตามมาตรฐาน LL-01, LL-04 ตรงตามสเปกโรงงาน</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="disc"></i><span>SVC-003</span></div>
+        <h3 class="service-title" data-lang-th="ระบบเบรก & ช่วงล่าง" data-lang-en="Brakes & Suspension">ระบบเบรก & ช่วงล่าง</h3>
+        <p class="service-desc" data-lang-th="ผ้าเบรก ดิสก์ ABS โช้คอัพ ยาง TPMS รีเซ็ตระบบ — ทุกชิ้นส่วนใช้อะไหล่แท้หรือ OE-equivalent เท่านั้น" data-lang-en="Brake pads, rotors, ABS, shock absorbers, tyres, TPMS reset — only genuine or OE-equivalent parts, no substitutes.">ผ้าเบรก ดิสก์ ABS โช้คอัพ ยาง TPMS รีเซ็ตระบบ — ทุกชิ้นส่วนใช้อะไหล่แท้หรือ OE-equivalent เท่านั้น</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="zap"></i><span>SVC-004</span></div>
+        <h3 class="service-title" data-lang-th="ระบบไฟฟ้า & ECU" data-lang-en="Electrical & ECU">ระบบไฟฟ้า & ECU</h3>
+        <p class="service-desc" data-lang-th="วินิจฉัยและซ่อมระบบไฟฟ้า CAN Bus, DME, ZGW การเขียนโปรแกรม Control Unit และการรีเซ็ต Adaptation" data-lang-en="CAN bus diagnostics, DME repair, ZGW programming, control unit coding and adaptation resets performed in-house.">วินิจฉัยและซ่อมระบบไฟฟ้า CAN Bus, DME, ZGW การเขียนโปรแกรม Control Unit และการรีเซ็ต Adaptation</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="thermometer"></i><span>SVC-005</span></div>
+        <h3 class="service-title" data-lang-th="ระบบระบายความร้อน" data-lang-en="Cooling System">ระบบระบายความร้อน</h3>
+        <p class="service-desc" data-lang-th="เปลี่ยนปั๊มน้ำ เทอร์โมสตัท หม้อน้ำ ท่อยาง และน้ำหล่อเย็น BMW ตรงตามสเปก เพื่อป้องกันความร้อนสูงเกินไป" data-lang-en="Water pump, thermostat, radiator, hoses, and BMW coolant to factory spec — preventing overheating before it causes catastrophic damage.">เปลี่ยนปั๊มน้ำ เทอร์โมสตัท หม้อน้ำ ท่อยาง และน้ำหล่อเย็น BMW ตรงตามสเปก เพื่อป้องกันความร้อนสูงเกินไป</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num"><i data-lucide="settings"></i><span>SVC-006</span></div>
+        <h3 class="service-title" data-lang-th="ซ่อมใหญ่ & OverHaul" data-lang-en="Major Overhaul">ซ่อมใหญ่ & OverHaul</h3>
+        <p class="service-desc" data-lang-th="รับซ่อมเครื่องยนต์ N20, N55, B58, S55 และกระปุกเกียร์ ZF8HP ทั้งแบบ Rebuild และเปลี่ยนชุด" data-lang-en="N20, N55, B58, S55 engine rebuilds and ZF8HP gearbox overhauls — complete teardown, inspection, and precision reassembly.">รับซ่อมเครื่องยนต์ N20, N55, B58, S55 และกระปุกเกียร์ ZF8HP ทั้งแบบ Rebuild และเปลี่ยนชุด</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section process-section" id="process">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><span class="mono" data-lang-th="MODULE.03 / PROCESS" data-lang-en="MODULE.03 / PROCESS">MODULE.03 / PROCESS</span></div>
+      <h2 class="section-title" data-lang-th="ขั้นตอนการซ่อมของเรา" data-lang-en="Our Repair Process">ขั้นตอนการซ่อมของเรา</h2>
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:var(--muted);line-height:1.9;max-width:520px;" data-lang-th="โปร่งใสทุกขั้นตอน ลูกค้ารู้ว่าจ่ายเงินไปเพื่ออะไร ก่อนที่จะมีการซ่อมทุกครั้ง" data-lang-en="Transparent at every step. You know exactly what you are paying for before any work begins.">โปร่งใสทุกขั้นตอน ลูกค้ารู้ว่าจ่ายเงินไปเพื่ออะไร ก่อนที่จะมีการซ่อมทุกครั้ง</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3 class="step-title" data-lang-th="นัดหมาย & รับรถ" data-lang-en="Booking & Vehicle Intake">นัดหมาย & รับรถ</h3>
+          <p class="step-desc" data-lang-th="ติดต่อนัดเวลาล่วงหน้า นำรถเข้า ช่างบันทึกอาการเบื้องต้นจากการพูดคุยกับเจ้าของรถโดยตรง" data-lang-en="Schedule in advance. On arrival the technician documents reported symptoms directly from the owner — no middlemen, no guessing.">ติดต่อนัดเวลาล่วงหน้า นำรถเข้า ช่างบันทึกอาการเบื้องต้นจากการพูดคุยกับเจ้าของรถโดยตรง</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3 class="step-title" data-lang-th="วินิจฉัยระบบ Full-Scan" data-lang-en="Full-System Diagnostic Scan">วินิจฉัยระบบ Full-Scan</h3>
+          <p class="step-desc" data-lang-th="สแกน Fault Code ทุกระบบด้วย ISTA+ ตรวจสอบทาง Visual Inspection และทดสอบการขับจริงหากจำเป็น" data-lang-en="ISTA+ full-system fault scan across all ECUs, visual inspection, and live road test when required. No fault goes unread.">สแกน Fault Code ทุกระบบด้วย ISTA+ ตรวจสอบทาง Visual Inspection และทดสอบการขับจริงหากจำเป็น</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3 class="step-title" data-lang-th="ใบเสนอราคาก่อนซ่อมทุกครั้ง" data-lang-en="Written Estimate Before Any Work">ใบเสนอราคาก่อนซ่อมทุกครั้ง</h3>
+          <p class="step-desc" data-lang-th="ลูกค้าได้รับใบแจ้งผลการวินิจฉัยพร้อมราคาแต่ละรายการ ไม่มีการซ่อมโดยไม่ได้รับการอนุมัติ" data-lang-en="You receive a diagnostic report with itemised costs for every job. Nothing is touched without your explicit approval.">ลูกค้าได้รับใบแจ้งผลการวินิจฉัยพร้อมราคาแต่ละรายการ ไม่มีการซ่อมโดยไม่ได้รับการอนุมัติ</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3 class="step-title" data-lang-th="ดำเนินการซ่อมด้วยอะไหล่แท้" data-lang-en="Repair with Genuine Parts">ดำเนินการซ่อมด้วยอะไหล่แท้</h3>
+          <p class="step-desc" data-lang-th="ช่างผู้เชี่ยวชาญดำเนินการซ่อมตาม Workshop Manual ของ BMW ใช้อะไหล่ OEM หรือ OE-Grade เท่านั้น" data-lang-en="Technicians follow BMW Workshop Manual procedure. OEM or OE-grade parts only — every time, no exceptions.">ช่างผู้เชี่ยวชาญดำเนินการซ่อมตาม Workshop Manual ของ BMW ใช้อะไหล่ OEM หรือ OE-Grade เท่านั้น</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3 class="step-title" data-lang-th="ทดสอบและส่งมอบพร้อมรายงาน" data-lang-en="Quality Test & Delivery with Report">ทดสอบและส่งมอบพร้อมรายงาน</h3>
+          <p class="step-desc" data-lang-th="หลังซ่อม ทดสอบการทำงานทุกระบบ ล้างรถ และส่งมอบพร้อมสรุปงานและใบรับประกันงานซ่อม" data-lang-en="Post-repair full-system verification, complimentary wash, and delivery with a written work summary and repair warranty.">หลังซ่อม ทดสอบการทำงานทุกระบบ ล้างรถ และส่งมอบพร้อมสรุปงานและใบรับประกันงานซ่อม</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <img class="about-img" src="https://images.unsplash.com/photo-1643701079732-3b1c7a797e3d?w=600&h=750&fit=crop" alt="Technician working under a BMW">
+        <div class="about-corner"></div>
+      </div>
+      <div class="about-body reveal">
+        <div class="section-label"><span class="mono" data-lang-th="MODULE.04 / ABOUT" data-lang-en="MODULE.04 / ABOUT">MODULE.04 / ABOUT</span></div>
+        <h2 class="section-title" data-lang-th="ช่างที่รู้จัก BMW จากข้างใน" data-lang-en="Technicians Who Know BMW Inside Out">ช่างที่รู้จัก BMW จากข้างใน</h2>
+        <p class="about-lead" data-lang-th="ฮาน เริ่มต้นจากการเป็นช่างในศูนย์ BMW ที่เยอรมนี ก่อนจะกลับมาเปิดอู่เฉพาะทางในไทยเมื่อ 15 ปีที่แล้ว" data-lang-en="Han began his career at a BMW Niederlassung in Germany before returning to Thailand to open the specialist shop 15 years ago.">ฮาน เริ่มต้นจากการเป็นช่างในศูนย์ BMW ที่เยอรมนี ก่อนจะกลับมาเปิดอู่เฉพาะทางในไทยเมื่อ 15 ปีที่แล้ว</p>
+        <p class="about-text" data-lang-th="ช่างฮาน ไม่ใช่แค่อู่ซ่อมรถ แต่คือสถานที่ที่เจ้าของ BMW มาพักใจได้ เพราะรู้ว่ารถจะได้รับการดูแลโดยคนที่เข้าใจมันจริงๆ ทีมงานของเราทุกคนผ่านการฝึกอบรม BMW Technician Qualification ระดับสากล และอัปเดตความรู้ด้านเทคโนโลยีใหม่ของ BMW อย่างต่อเนื่อง" data-lang-en="Chang Han is not just a repair shop. It is the place BMW owners come to because they know their car is handled by people who genuinely understand it. Every team member holds international BMW technician qualification and trains continuously on new BMW technology.">ช่างฮาน ไม่ใช่แค่อู่ซ่อมรถ แต่คือสถานที่ที่เจ้าของ BMW มาพักใจได้ เพราะรู้ว่ารถจะได้รับการดูแลโดยคนที่เข้าใจมันจริงๆ ทีมงานของเราทุกคนผ่านการฝึกอบรม BMW Technician Qualification ระดับสากล และอัปเดตความรู้ด้านเทคโนโลยีใหม่ของ BMW อย่างต่อเนื่อง</p>
+        <ul class="cert-list">
+          <li>
+            <i data-lucide="badge-check"></i>
+            <span data-lang-th="BMW Group Certified Technician (Level 3)" data-lang-en="BMW Group Certified Technician (Level 3)">BMW Group Certified Technician (Level 3)</span>
+          </li>
+          <li>
+            <i data-lucide="badge-check"></i>
+            <span data-lang-th="ISTA+ Diagnostic System Authorised User" data-lang-en="ISTA+ Diagnostic System Authorised User">ISTA+ Diagnostic System Authorised User</span>
+          </li>
+          <li>
+            <i data-lucide="badge-check"></i>
+            <span data-lang-th="ประสบการณ์ซ่อมเครื่องยนต์ B-Series & N-Series" data-lang-en="B-Series & N-Series Engine Overhaul Specialist">ประสบการณ์ซ่อมเครื่องยนต์ B-Series & N-Series</span>
+          </li>
+          <li>
+            <i data-lucide="badge-check"></i>
+            <span data-lang-th="ใช้อะไหล่แท้และ OE-Grade เท่านั้น" data-lang-en="Genuine & OE-Grade Parts Commitment">ใช้อะไหล่แท้และ OE-Grade เท่านั้น</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section gallery-section" id="gallery">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><span class="mono" data-lang-th="MODULE.05 / WORKSHOP" data-lang-en="MODULE.05 / WORKSHOP">MODULE.05 / WORKSHOP</span></div>
+      <h2 class="section-title" data-lang-th="อู่มาตรฐานระดับมืออาชีพ" data-lang-en="Professional-Grade Workshop">อู่มาตรฐานระดับมืออาชีพ</h2>
+    </div>
+  </div>
+  <div class="gallery-track">
+    <div class="gallery-cell">
+      <img src="https://images.unsplash.com/photo-1706675804473-eb97f1c68bb2?w=800&h=1100&fit=crop" alt="BMW vehicles in workshop">
+      <div class="gallery-cell-label">BAY-01 / MAIN LIFT</div>
+    </div>
+    <div class="gallery-cell">
+      <img src="https://images.unsplash.com/photo-1653163048173-4305f65cf3f3?w=600&h=500&fit=crop" alt="BMW engine close up">
+      <div class="gallery-cell-label">BAY-02 / ENGINE</div>
+    </div>
+    <div class="gallery-cell">
+      <img src="https://images.unsplash.com/photo-1681292634946-fd55affe0ac3?w=600&h=500&fit=crop" alt="Workshop tools">
+      <div class="gallery-cell-label">TOOL.STATION / A</div>
+    </div>
+    <div class="gallery-cell">
+      <img src="https://images.unsplash.com/photo-1681113163713-b4eb59934b74?w=600&h=500&fit=crop" alt="BMW front detail">
+      <div class="gallery-cell-label">BAY-03 / DIAG</div>
+    </div>
+    <div class="gallery-cell">
+      <img src="https://images.unsplash.com/photo-1622361987073-f3fc004d6f5e?w=600&h=500&fit=crop" alt="BMW steering wheel">
+      <div class="gallery-cell-label">DETAIL / INTERIOR</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><span class="mono" data-lang-th="MODULE.06 / REVIEWS" data-lang-en="MODULE.06 / REVIEWS">MODULE.06 / REVIEWS</span></div>
+      <h2 class="section-title" data-lang-th="เสียงจากเจ้าของ BMW จริงๆ" data-lang-en="Words from Real BMW Owners">เสียงจากเจ้าของ BMW จริงๆ</h2>
+    </div>
+    <div class="testimonials-wrap">
+      <div class="testimonial-card">
+        <div class="testimonial-meta">
+          <div>
+            <div class="testimonial-name" data-lang-th="คุณสมชาย วิริยะ" data-lang-en="Somchai W.">คุณสมชาย วิริยะ</div>
+            <div class="testimonial-car">BMW 330e / G20</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+        </div>
+        <p class="testimonial-text" data-lang-th="ไปศูนย์มาสองที่ บอกไม่เจอปัญหา มาที่ช่างฮานวินิจฉัยเจอภายใน 30 นาที ซ่อมเสร็จใน 1 วัน ประทับใจมากครับ" data-lang-en="Two dealers told me nothing was wrong. Chang Han found the fault in 30 minutes and had it fixed in a day. Outstanding.">ไปศูนย์มาสองที่ บอกไม่เจอปัญหา มาที่ช่างฮานวินิจฉัยเจอภายใน 30 นาที ซ่อมเสร็จใน 1 วัน ประทับใจมากครับ</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-meta">
+          <div>
+            <div class="testimonial-name" data-lang-th="คุณนภา รัตนสิริ" data-lang-en="Napa R.">คุณนภา รัตนสิริ</div>
+            <div class="testimonial-car">BMW X5 / G05</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+        </div>
+        <p class="testimonial-text" data-lang-th="ราคาโปร่งใส อธิบายได้ทุกขั้นตอน ไม่มีค่าใช้จ่ายที่ไม่คาดคิด และรถสะอาดกลับบ้านทุกครั้ง ใช้บริการมา 3 ปีแล้วค่ะ" data-lang-en="Transparent pricing, every step explained, no surprise charges. And the car comes back clean every time. Three years a loyal customer.">ราคาโปร่งใส อธิบายได้ทุกขั้นตอน ไม่มีค่าใช้จ่ายที่ไม่คาดคิด และรถสะอาดกลับบ้านทุกครั้ง ใช้บริการมา 3 ปีแล้วค่ะ</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-meta">
+          <div>
+            <div class="testimonial-name" data-lang-th="คุณปิยะ ธนกุล" data-lang-en="Piya T.">คุณปิยะ ธนกุล</div>
+            <div class="testimonial-car">BMW M3 / F80</div>
+          </div>
+          <div class="testimonial-stars">
+            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          </div>
+        </div>
+        <p class="testimonial-text" data-lang-th="รับซ่อม M-car ได้จริงๆ ไม่ใช่แค่พูด Rebuild S55 เสร็จตรงเวลา ผลลัพธ์ดีเยี่ยม ขอบคุณช่างฮานมากครับ" data-lang-en="Actually works on M-cars, not just talks about it. S55 rebuild completed on schedule, results are excellent. Highly recommend.">รับซ่อม M-car ได้จริงๆ ไม่ใช่แค่พูด Rebuild S55 เสร็จตรงเวลา ผลลัพธ์ดีเยี่ยม ขอบคุณช่างฮานมากครับ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><span class="mono" data-lang-th="MODULE.07 / CONTACT" data-lang-en="MODULE.07 / CONTACT">MODULE.07 / CONTACT</span></div>
+      <h2 class="section-title" data-lang-th="นัดหมาย หรือสอบถาม" data-lang-en="Book a Visit or Get in Touch">นัดหมาย หรือสอบถาม</h2>
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:var(--muted);line-height:1.9;max-width:500px;margin-bottom:0;" data-lang-th="นัดล่วงหน้าเพื่อให้ช่างเตรียมพร้อมและให้เวลากับรถของคุณอย่างเต็มที่" data-lang-en="Booking ahead ensures your technician is prepared and your vehicle receives full, undivided attention.">นัดล่วงหน้าเพื่อให้ช่างเตรียมพร้อมและให้เวลากับรถของคุณอย่างเต็มที่</p>
+    </div>
+    <div class="contact-layout">
+      <!-- INFO -->
+      <div class="contact-info-block reveal">
+        <h3 data-lang-th="ข้อมูลติดต่อ" data-lang-en="Contact Information">ข้อมูลติดต่อ</h3>
+        <div class="info-rows">
+          <div class="info-row">
+            <div class="info-icon"><i data-lucide="phone"></i></div>
+            <div class="info-body">
+              <div class="info-label" data-lang-th="โทรศัพท์" data-lang-en="Phone">โทรศัพท์</div>
+              <div class="info-val"><a href="tel:+6621234567">02-123-4567</a><br><a href="tel:+66812345678">081-234-5678</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><i data-lucide="message-circle"></i></div>
+            <div class="info-body">
+              <div class="info-label">LINE OA</div>
+              <div class="info-val"><a href="#">@changhan.bmw</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><i data-lucide="mail"></i></div>
+            <div class="info-body">
+              <div class="info-label">Email</div>
+              <div class="info-val"><a href="mailto:info@changhan.co.th">info@changhan.co.th</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><i data-lucide="map-pin"></i></div>
+            <div class="info-body">
+              <div class="info-label" data-lang-th="ที่อยู่" data-lang-en="Address">ที่อยู่</div>
+              <div class="info-val" data-lang-th="123/45 ถ.พหลโยธิน แขวงลาดยาว เขตจตุจักร กรุงเทพฯ 10900" data-lang-en="123/45 Phahon Yothin Rd., Lat Yao, Chatuchak, Bangkok 10900">123/45 ถ.พหลโยธิน แขวงลาดยาว เขตจตุจักร กรุงเทพฯ 10900</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2rem;" data-lang-th="เวลาทำการ" data-lang-en="Opening Hours">เวลาทำการ</h3>
+        <table class="hours-table">
+          <tr>
+            <td data-lang-th="จันทร์ – ศุกร์" data-lang-en="Mon – Fri">จันทร์ – ศุกร์</td>
+            <td>08:00 – 18:00</td>
+          </tr>
+          <tr>
+            <td data-lang-th="เสาร์" data-lang-en="Saturday">เสาร์</td>
+            <td>08:00 – 16:00</td>
+          </tr>
+          <tr>
+            <td data-lang-th="อาทิตย์" data-lang-en="Sunday">อาทิตย์</td>
+            <td class="closed" data-lang-th="ปิดทำการ" data-lang-en="Closed">ปิดทำการ</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- FORM -->
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-title" data-lang-th="แบบฟอร์มนัดหมาย / สอบถาม" data-lang-en="Booking / Enquiry Form">แบบฟอร์มนัดหมาย / สอบถาม</div>
+          <form onsubmit="return false;">
+            <label class="form-label" for="f-name" data-lang-th="ชื่อ-นามสกุล" data-lang-en="Full Name">ชื่อ-นามสกุล</label>
+            <input class="form-input" id="f-name" type="text" autocomplete="name">
+
+            <label class="form-label" for="f-phone" data-lang-th="เบอร์โทรศัพท์" data-lang-en="Phone Number">เบอร์โทรศัพท์</label>
+            <input class="form-input" id="f-phone" type="tel" autocomplete="tel">
+
+            <label class="form-label" for="f-model" data-lang-th="รุ่น BMW ของคุณ" data-lang-en="Your BMW Model">รุ่น BMW ของคุณ</label>
+            <select class="form-select" id="f-model">
+              <option value="" data-lang-th="— เลือกรุ่น —" data-lang-en="— Select model —">— เลือกรุ่น —</option>
+              <option>Series 1 (F20 / F40)</option>
+              <option>Series 2 (F22 / G42)</option>
+              <option>Series 3 (F30 / G20)</option>
+              <option>Series 4 (F32 / G22)</option>
+              <option>Series 5 (F10 / G30)</option>
+              <option>Series 7 (F01 / G11)</option>
+              <option>X3 / X4</option>
+              <option>X5 / X6 / X7</option>
+              <option>M2 / M3 / M4</option>
+              <option>M5 / M8</option>
+              <option data-lang-th="รุ่นอื่นๆ" data-lang-en="Other">รุ่นอื่นๆ</option>
+            </select>
+
+            <label class="form-label" for="f-service" data-lang-th="บริการที่ต้องการ" data-lang-en="Service Required">บริการที่ต้องการ</label>
+            <select class="form-select" id="f-service">
+              <option value="" data-lang-th="— เลือกบริการ —" data-lang-en="— Select service —">— เลือกบริการ —</option>
+              <option data-lang-th="วินิจฉัยระบบ" data-lang-en="Diagnostic Scan">วินิจฉัยระบบ</option>
+              <option data-lang-th="เปลี่ยนถ่ายน้ำมัน" data-lang-en="Oil Service">เปลี่ยนถ่ายน้ำมัน</option>
+              <option data-lang-th="ระบบเบรก / ช่วงล่าง" data-lang-en="Brakes / Suspension">ระบบเบรก / ช่วงล่าง</option>
+              <option data-lang-th="ระบบไฟฟ้า / ECU" data-lang-en="Electrical / ECU">ระบบไฟฟ้า / ECU</option>
+              <option data-lang-th="ซ่อมใหญ่ / Overhaul" data-lang-en="Major Overhaul">ซ่อมใหญ่ / Overhaul</option>
+              <option data-lang-th="อื่นๆ / ไม่แน่ใจ" data-lang-en="Other / Unsure">อื่นๆ / ไม่แน่ใจ</option>
+            </select>
+
+            <label class="form-label" for="f-msg" data-lang-th="รายละเอียดเพิ่มเติม" data-lang-en="Additional Details">รายละเอียดเพิ่มเติม</label>
+            <textarea class="form-textarea" id="f-msg"></textarea>
+
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+              <i data-lucide="send" style="width:16px;height:16px;"></i>
+              <span data-lang-th="ส่งข้อมูล" data-lang-en="Send Enquiry">ส่งข้อมูล</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION STRIP ============ -->
+<div class="location-strip">
+  <div class="location-inner">
+    <div class="location-text">
+      <i data-lucide="map-pin"></i>
+      <span data-lang-th="123/45 ถ.พหลโยธิน จตุจักร กรุงเทพฯ — ใกล้ BTS สะพานควาย, ฟรีที่จอดรถ" data-lang-en="123/45 Phahon Yothin Rd., Chatuchak, Bangkok — Near BTS Saphan Khwai, Free Parking">123/45 ถ.พหลโยธิน จตุจักร กรุงเทพฯ — ใกล้ BTS สะพานควาย, ฟรีที่จอดรถ</span>
+    </div>
+    <a href="https://maps.google.com" target="_blank" rel="noopener" class="location-btn">
+      <i data-lucide="navigation"></i>
+      <span data-lang-th="นำทางมาที่อู่" data-lang-en="Get Directions">นำทางมาที่อู่</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">ช่างฮาน <strong>/ Chang Han</strong></div>
+        <div class="footer-brand-tag">BMW SPECIALIST — SINCE 2010</div>
+        <p class="footer-brand-desc" data-lang-th="ศูนย์บริการ BMW เชี่ยวชาญเฉพาะทาง วินิจฉัยแม่นยำ ซ่อมได้จริง ด้วยประสบการณ์กว่า 15 ปีและความมุ่งมั่นในมาตรฐานสูงสุด" data-lang-en="BMW specialist workshop. Accurate diagnosis, real repairs, 15+ years of expertise and an uncompromising commitment to the highest standards.">ศูนย์บริการ BMW เชี่ยวชาญเฉพาะทาง วินิจฉัยแม่นยำ ซ่อมได้จริง ด้วยประสบการณ์กว่า 15 ปีและความมุ่งมั่นในมาตรฐานสูงสุด</p>
+      </div>
+      <div>
+        <div class="footer-col-title" data-lang-th="เมนู" data-lang-en="Navigation">เมนู</div>
+        <ul class="footer-links">
+          <li><a href="#services" data-lang-th="บริการของเรา" data-lang-en="Our Services">บริการของเรา</a></li>
+          <li><a href="#process" data-lang-th="ขั้นตอนการซ่อม" data-lang-en="Repair Process">ขั้นตอนการซ่อม</a></li>
+          <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About Us">เกี่ยวกับเรา</a></li>
+          <li><a href="#gallery" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a></li>
+          <li><a href="#testimonials" data-lang-th="รีวิวลูกค้า" data-lang-en="Reviews">รีวิวลูกค้า</a></li>
+          <li><a href="#contact" data-lang-th="ติดต่อ / นัดหมาย" data-lang-en="Contact / Book">ติดต่อ / นัดหมาย</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-lang-th="รุ่นที่รับซ่อม" data-lang-en="Supported Models">รุ่นที่รับซ่อม</div>
+        <ul class="footer-links">
+          <li><a href="#">BMW Series 1, 2, 3, 4</a></li>
+          <li><a href="#">BMW Series 5, 6, 7, 8</a></li>
+          <li><a href="#">BMW X3, X4, X5, X6, X7</a></li>
+          <li><a href="#">BMW M2, M3, M4, M5, M8</a></li>
+          <li><a href="#">BMW i4, iX (EV)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2025 CHANG HAN CO., LTD. — ALL RIGHTS RESERVED</div>
+      <div class="lang-sw" aria-label="Switch language">
+        <i data-lucide="globe" width="14" height="14"></i>
+        <span class="lang-sw__label">TH</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <i data-lucide="arrow-up"></i>
+</button>
+
+<script>
+// ============ LUCIDE ============
+lucide.createIcons();
+
+// ============ NAVBAR SCROLL ============
+(function(){
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 60){ nav.classList.add('scrolled'); }
+    else { nav.classList.remove('scrolled'); }
+  }, {passive:true});
+})();
+
+// ============ HAMBURGER ============
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
+})();
+
+// ============ SCROLL TOP ============
+(function(){
+  var btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, {passive:true});
+  btn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// ============ INTERSECTION OBSERVER — REVEAL ============
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1, rootMargin:'0px 0px -40px 0px'});
+
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // Process steps with staggered delay
+  var stepIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        stepIO.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1});
+
+  document.querySelectorAll('.process-step').forEach(function(el, i){
+    el.style.transitionDelay = (i * 0.1) + 's';
+    stepIO.observe(el);
+  });
+
+  // Testimonial cards with stagger
+  var tIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        tIO.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1});
+
+  document.querySelectorAll('.testimonial-card').forEach(function(el, i){
+    el.style.transitionDelay = (i * 0.15) + 's';
+    tIO.observe(el);
+  });
+})();
+
+// ============ LANGUAGE SWITCHER ============
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+</body>
+</html>

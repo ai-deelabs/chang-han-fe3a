@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ช่างฮาน — ศูนย์ซ่อม BMW เชี่ยวชาญเฉพาะทาง</title>
+<meta name="description" content="ช่างฮาน ศูนย์ซ่อมและบำรุงรักษา BMW โดยช่างผู้เชี่ยวชาญเฉพาะทาง ด้วยเครื่องมือมาตรฐานและประสบการณ์กว่า 15 ปี">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --background:  #E8EAF0;
+  --card:        #F4F5F8;
+  --bg-accent:   #D0D4DD;
+  --foreground:  #2E3340;
+  --muted:       #6B7385;
+  --border:      #A3AABA;
+  --primary:     #2E3340;
+  --secondary:   #A3AABA;
+  --accent:      #FAF7F0;
+
+  --font-heading: 'Cormorant Garamond', 'Sarabun', Georgia, serif;
+  --font-body:    'IBM Plex Sans Thai', 'Sukhumvit Set', sans-serif;
+
+  --radius-sm:   6px;
+  --radius-md:   14px;
+  --radius-lg:   24px;
+  --radius-xl:   40px;
+
+  --shadow-soft: 0 4px 24px rgba(46,51,64,0.08), 0 1px 4px rgba(46,51,64,0.06);
+  --shadow-card: 0 8px 40px rgba(46,51,64,0.12), 0 2px 8px rgba(46,51,64,0.06);
+  --shadow-lift: 0 20px 60px rgba(46,51,64,0.18), 0 4px 16px rgba(46,51,64,0.08);
+
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+img { display: block; width: 100%; height: auto; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* ===== TYPOGRAPHY SCALE ===== */
+.display-xl { font-size: clamp(3rem, 10vw, 7.5rem); line-height: 1.05; font-weight: 300; font-style: italic; }
+.display-lg { font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1.1; font-weight: 400; }
+.display-md { font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.3; font-weight: 500; }
+.display-sm { font-size: clamp(1.2rem, 3vw, 2rem); line-height: 1.4; font-weight: 400; }
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 1.5rem;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(232, 234, 240, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo__circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--foreground);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav-logo__circle::before,
+.nav-logo__circle::after {
+  content: '';
+  position: absolute;
+  background: var(--foreground);
+}
+
+.nav-logo__circle::before {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-logo__circle::after {
+  height: 1px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--foreground);
+  letter-spacing: 0.04em;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color var(--transition);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--foreground);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+.lang-sw {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  background: transparent;
+  line-height: 1;
+}
+
+.lang-sw:hover {
+  background: var(--foreground);
+  color: var(--accent);
+  border-color: var(--foreground);
+}
+
+.lang-sw svg { flex-shrink: 0; }
+
+/* HAMBURGER */
+.nav-hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--foreground);
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--foreground);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 800;
+  background: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.nav-mobile.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nav-mobile a {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.3;
+  transition: color var(--transition);
+}
+
+.nav-mobile a:hover { color: var(--secondary); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4rem;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform-origin: center;
+  animation: heroZoom 14s ease-out forwards;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1.0); }
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(46,51,64,0.25) 0%,
+    rgba(46,51,64,0.1) 40%,
+    rgba(46,51,64,0.7) 100%
+  );
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+/* FROSTED GLASS PANEL */
+.hero__glass {
+  background: rgba(232, 234, 240, 0.12);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  border: 1px solid rgba(232, 234, 240, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  max-width: 560px;
+  transform: rotate(-0.8deg);
+  box-shadow: 0 8px 40px rgba(46,51,64,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.hero__glass .eyebrow {
+  color: rgba(232, 234, 240, 0.7);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
+}
+
+.hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 9vw, 6rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(250,247,240,0.82);
+  margin-bottom: 2rem;
+}
+
+.hero__cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 48px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.btn-primary:hover {
+  background: var(--card);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(250,247,240,0.4);
+}
+
+.btn-ghost:hover {
+  background: rgba(250,247,240,0.1);
+  border-color: rgba(250,247,240,0.7);
+}
+
+.btn-dark {
+  background: var(--primary);
+  color: var(--accent);
+}
+
+.btn-dark:hover {
+  background: #1e2130;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  background: var(--foreground);
+  color: var(--accent);
+  border-color: var(--foreground);
+}
+
+/* HERO ROUNDEL (decorative) */
+.hero__roundel {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 80px;
+  height: 80px;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.roundel-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* SCROLL INDICATOR */
+.hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(250,247,240,0.5);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ===== SECTION WRAPPERS ===== */
+.section {
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-header .eyebrow {
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+  background: var(--accent);
+  position: relative;
+  overflow: visible;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--accent);
+  clip-path: ellipse(60% 100% at 50% 100%);
+  z-index: 1;
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.about__image-wrap {
+  position: relative;
+}
+
+.about__img-circle {
+  width: min(340px, 90vw);
+  height: min(340px, 90vw);
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: var(--shadow-lift);
+  position: relative;
+}
+
+.about__img-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__badge {
+  position: absolute;
+  bottom: -10px;
+  right: 10%;
+  background: var(--primary);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.4rem;
+  box-shadow: var(--shadow-card);
+  transform: rotate(2deg);
+  min-width: 120px;
+  text-align: center;
+}
+
+.about__badge-num {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1;
+  display: block;
+}
+
+.about__badge-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--secondary);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.about__text h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+}
+
+.about__text p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.about__stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat__num {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+.stat__label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* ===== SERVICES SECTION ===== */
+.services {
+  background: var(--background);
+}
+
+/* Horizontal scroll service cards on mobile */
+.services__track-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 1.5rem;
+  cursor: grab;
+}
+
+.services__track-wrap::-webkit-scrollbar { display: none; }
+
+.services__track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  padding: 1rem 0 0.5rem;
+}
+
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem;
+  width: 280px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-soft);
+}
+
+.service-card:nth-child(even) {
+  transform: rotate(0.8deg) translateY(8px);
+}
+
+.service-card:nth-child(odd) {
+  transform: rotate(-0.5deg) translateY(-4px);
+}
+
+.service-card:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.02) !important;
+  box-shadow: var(--shadow-lift);
+  border-color: var(--primary);
+  z-index: 10;
+}
+
+.service-card__num {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.service-card__icon {
+  width: 44px;
+  height: 44px;
+  background: var(--foreground);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  color: var(--accent);
+}
+
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.service-card p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.service-card__line {
+  width: 2rem;
+  height: 2px;
+  background: var(--foreground);
+  margin-top: 1.5rem;
+  transition: width var(--transition);
+}
+
+.service-card:hover .service-card__line {
+  width: 100%;
+}
+
+/* ===== PROCESS SECTION ===== */
+.process {
+  background: var(--bg-accent);
+  clip-path: polygon(0 4%, 100% 0%, 100% 96%, 0% 100%);
+  padding: 7rem 1.5rem;
+}
+
+.process__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.process__steps::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  align-items: flex-start;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.process-step.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.process-step__num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: all var(--transition);
+}
+
+.process-step:hover .process-step__num {
+  background: var(--foreground);
+  color: var(--accent);
+  border-color: var(--foreground);
+}
+
+.process-step__body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  padding-top: 0.6rem;
+}
+
+.process-step__body p {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ===== GALLERY SECTION ===== */
+.gallery {
+  background: var(--foreground);
+  padding: 5rem 1.5rem;
+}
+
+.gallery .section-header .eyebrow { color: var(--border); }
+.gallery .section-header h2 { color: var(--accent); }
+
+.gallery__mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.gallery__item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.gallery__item:first-child {
+  grid-column: span 2;
+  aspect-ratio: 16/7;
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.gallery__item:hover img { transform: scale(1.06); }
+
+.gallery__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(46,51,64,0.8) 0%, transparent 100%);
+  padding: 1.5rem 1rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(250,247,240,0.8);
+  letter-spacing: 0.06em;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials {
+  background: var(--accent);
+  padding: 5rem 1.5rem;
+}
+
+.testimonials__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.testimonial-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonial-card:nth-child(2) { transform: rotate(0.6deg) translateY(20px); }
+.testimonial-card:nth-child(3) { transform: rotate(-0.4deg) translateY(20px); }
+
+.testimonial-card.visible:nth-child(2) { transform: rotate(0.6deg) translateY(0); }
+.testimonial-card.visible:nth-child(3) { transform: rotate(-0.4deg) translateY(0); }
+
+.testimonial-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: rotate(0deg) translateY(-4px) !important;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1;
+  color: var(--border);
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-card p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-accent);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.author-info strong {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--foreground);
+  display: block;
+}
+
+.author-info span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+/* ===== WHY US SECTION ===== */
+.why {
+  background: var(--background);
+  padding: 5rem 1.5rem;
+}
+
+.why__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.why__image {
+  position: relative;
+}
+
+.why__img-wrap {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  box-shadow: var(--shadow-lift);
+}
+
+.why__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.why__img-wrap:hover img { transform: scale(1.04); }
+
+.why__floating-card {
+  position: absolute;
+  bottom: -1.5rem;
+  left: -1rem;
+  background: var(--primary);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  transform: rotate(-1.5deg);
+  z-index: 2;
+  max-width: 200px;
+}
+
+.why__floating-card strong {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1;
+}
+
+.why__floating-card span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--secondary);
+  line-height: 1.5;
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.why__points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.why-point {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all var(--transition);
+}
+
+.why-point:hover {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.why-point__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--foreground);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.why-point:hover .why-point__icon {
+  background: var(--foreground);
+  color: var(--accent);
+  border-color: var(--foreground);
+}
+
+.why-point h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  padding-top: 0.5rem;
+}
+
+.why-point p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ===== BOOKING SECTION ===== */
+.booking {
+  background: var(--foreground);
+  padding: 5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.booking::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(163,170,186,0.15);
+}
+
+.booking::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -60px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 1px solid rgba(163,170,186,0.1);
+}
+
+.booking .section-header .eyebrow { color: var(--border); }
+.booking .section-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.booking__form-wrap {
+  background: rgba(232,234,240,0.06);
+  border: 1px solid rgba(163,170,186,0.2);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--border);
+  letter-spacing: 0.06em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--accent);
+  background: rgba(232,234,240,0.08);
+  border: 1px solid rgba(163,170,186,0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  transition: all var(--transition);
+  outline: none;
+  width: 100%;
+  min-height: 48px;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(163,170,186,0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--secondary);
+  background: rgba(232,234,240,0.12);
+}
+
+.form-group select option { background: var(--foreground); color: var(--accent); }
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.booking__contact-alts {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-alt-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--secondary);
+  padding: 0.85rem 1.2rem;
+  border: 1px solid rgba(163,170,186,0.2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+
+.contact-alt-link:hover {
+  color: var(--accent);
+  border-color: rgba(163,170,186,0.5);
+  background: rgba(232,234,240,0.06);
+}
+
+/* ===== MAP / LOCATION SECTION ===== */
+.location {
+  background: var(--accent);
+  padding: 5rem 1.5rem;
+}
+
+.location__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.location__info h3 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.location__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.location__detail-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--foreground);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.location__map {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  box-shadow: var(--shadow-card);
+  background: var(--bg-accent);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.hours-table tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.hours-table tr:last-child { border-bottom: none; }
+
+.hours-table td {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.65rem 0;
+  color: var(--muted);
+}
+
+.hours-table td:first-child { color: var(--foreground); font-weight: 500; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--foreground);
+  color: var(--accent);
+  padding: 4rem 1.5rem 2rem;
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer__brand h3 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.footer__brand p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--secondary);
+  max-width: 260px;
+}
+
+.footer__col h4 {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--border);
+  margin-bottom: 1.2rem;
+}
+
+.footer__col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer__col ul li a {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--secondary);
+  transition: color var(--transition);
+}
+
+.footer__col ul li a:hover { color: var(--accent); }
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(163,170,186,0.2);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--border);
+}
+
+.footer__roundel {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+}
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ===== DESKTOP (768px+) ===== */
+@media (min-width: 768px) {
+  .navbar { padding: 1.6rem 3rem; }
+  .navbar.scrolled { padding: 1rem 3rem; }
+  .nav-links { display: flex; }
+  .nav-hamburger { display: none; }
+
+  .hero__glass {
+    padding: 3.5rem 3rem;
+    max-width: 620px;
+  }
+
+  .hero__cta-group {
+    flex-direction: row;
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .services__track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: auto;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .services__track-wrap {
+    overflow-x: visible;
+    cursor: default;
+  }
+
+  .service-card { width: auto; }
+
+  .process__steps::before { left: 28px; }
+
+  .process-step { padding: 2.5rem 0; }
+
+  .gallery__mosaic {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+  }
+
+  .gallery__item:first-child {
+    grid-column: span 2;
+    aspect-ratio: 4/3;
+  }
+
+  .testimonials__grid {
+    flex-direction: row;
+  }
+
+  .testimonial-card { flex: 1; }
+
+  .why__layout {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .booking__form-wrap { padding: 3rem; }
+
+  .form-row { grid-template-columns: 1fr 1fr; }
+
+  .location__inner {
+    grid-template-columns: 1fr 1.3fr;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .section { padding: 7rem 3rem; }
+  .process { padding: 9rem 3rem; }
+  .gallery { padding: 7rem 3rem; }
+  .booking { padding: 7rem 3rem; }
+  .location { padding: 7rem 3rem; }
+  footer { padding: 6rem 3rem 3rem; }
+}
+
+@media (min-width: 1100px) {
+  .hero__glass { max-width: 680px; }
+  .services__track { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo__circle"></div>
+    <span>ช่างฮาน</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+      <li><a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a></li>
+      <li><a href="#gallery" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a></li>
+      <li><a href="#booking" data-lang-th="นัดหมาย" data-lang-en="Book">นัดหมาย</a></li>
+      <li><a href="#location" data-lang-th="ที่ตั้ง" data-lang-en="Location">ที่ตั้ง</a></li>
+    </ul>
+    <div class="lang-sw">
+      <i data-lucide="globe" width="14" height="14"></i>
+      <span class="lang-sw__label">TH</span>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="เมนู">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#about" class="mobile-link" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+  <a href="#services" class="mobile-link" data-lang-th="บริการ" data-lang-en="Services">บริการ</a>
+  <a href="#gallery" class="mobile-link" data-lang-th="ผลงาน" data-lang-en="Gallery">ผลงาน</a>
+  <a href="#booking" class="mobile-link" data-lang-th="นัดหมาย" data-lang-en="Book Now">นัดหมาย</a>
+  <a href="#location" class="mobile-link" data-lang-th="ที่ตั้ง" data-lang-en="Location">ที่ตั้ง</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero__bg">
+    <img
+      src="https://images.unsplash.com/photo-1607500422359-a8831901753b?w=1600&h=900&fit=crop"
+      alt="BMW white coupe"
+    >
+  </div>
+  <div class="hero__overlay"></div>
+
+  <!-- BMW Roundel SVG (decorative) -->
+  <div class="hero__roundel">
+    <svg class="roundel-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" stroke="rgba(250,247,240,0.4)" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="36" stroke="rgba(250,247,240,0.4)" stroke-width="1.5"/>
+      <line x1="50" y1="2" x2="50" y2="98" stroke="rgba(250,247,240,0.4)" stroke-width="1.5"/>
+      <line x1="2" y1="50" x2="98" y2="50" stroke="rgba(250,247,240,0.4)" stroke-width="1.5"/>
+      <path d="M14 14 Q50 50 14 86" stroke="rgba(250,247,240,0.4)" stroke-width="1.5" fill="none"/>
+      <path d="M86 14 Q50 50 86 86" stroke="rgba(250,247,240,0.4)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="hero__content">
+    <div class="container">
+      <div class="hero__glass">
+        <span class="eyebrow" data-lang-th="เชี่ยวชาญเฉพาะ BMW · กรุงเทพมหานคร" data-lang-en="BMW Specialist · Bangkok">เชี่ยวชาญเฉพาะ BMW · กรุงเทพมหานคร</span>
+        <h1 class="hero__title" data-lang-th="ศิลปะ<br>การซ่อม<br>BMW" data-lang-en="The Art<br>of BMW<br>Repair">ศิลปะ<br>การซ่อม<br>BMW</h1>
+        <p class="hero__subtitle" data-lang-th="ช่างฮาน คือผู้เชี่ยวชาญด้านการซ่อมและบำรุงรักษา BMW ที่เข้าใจทุกความละเอียดอ่อนของเครื่องยนต์บาวาเรียน" data-lang-en="Chang Han is a dedicated BMW specialist with deep knowledge of every nuance of Bavarian engineering — from routine maintenance to complex diagnostics.">ช่างฮาน คือผู้เชี่ยวชาญด้านการซ่อมและบำรุงรักษา BMW ที่เข้าใจทุกความละเอียดอ่อนของเครื่องยนต์บาวาเรียน</p>
+        <div class="hero__cta-group">
+          <a href="#booking" class="btn btn-primary" data-lang-th="นัดหมายออนไลน์" data-lang-en="Book an Appointment">นัดหมายออนไลน์</a>
+          <a href="#services" class="btn btn-ghost" data-lang-th="ดูบริการทั้งหมด" data-lang-en="Our Services">ดูบริการทั้งหมด</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll">
+    <i data-lucide="chevron-down" width="16" height="16"></i>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about__inner">
+      <div class="about__image-wrap reveal">
+        <div class="about__img-circle">
+          <img
+            src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=600&h=600&fit=crop"
+            alt="BMW in professional garage"
+          >
+        </div>
+        <div class="about__badge">
+          <span class="about__badge-num">15+</span>
+          <span class="about__badge-label" data-lang-th="ปีประสบการณ์" data-lang-en="Years Experience">ปีประสบการณ์</span>
+        </div>
+      </div>
+
+      <div class="about__text">
+        <span class="eyebrow" data-lang-th="ฝีมือที่ผ่านการพิสูจน์" data-lang-en="Proven Craftsmanship">ฝีมือที่ผ่านการพิสูจน์</span>
+        <h2 class="reveal" data-lang-th="ความเชี่ยวชาญที่<br>สะสมมาจาก<br>ประสบการณ์จริง" data-lang-en="Expertise Built Through<br>Real-World<br>Experience">ความเชี่ยวชาญที่<br>สะสมมาจาก<br>ประสบการณ์จริง</h2>
+        <p class="reveal reveal-delay-1" data-lang-th="ช่างฮาน เริ่มต้นจากความหลงใหลใน BMW อย่างลึกซึ้ง กว่า 15 ปีในการทุ่มเทกับรถยนต์ BMW โดยเฉพาะทุกรุ่น ตั้งแต่ซีรีส์ 1 ไปจนถึง M Series เราเข้าใจว่า BMW ไม่ใช่แค่รถยนต์ — มันคือประสบการณ์การขับขี่ที่ต้องได้รับการดูแลอย่างถูกต้อง" data-lang-en="Chang Han began with a deep passion for BMW. Over 15 years of dedication to every model — from Series 1 to M Series — we understand that a BMW is not just a car. It is a driving experience that demands proper care.">ช่างฮาน เริ่มต้นจากความหลงใหลใน BMW อย่างลึกซึ้ง กว่า 15 ปีในการทุ่มเทกับรถยนต์ BMW โดยเฉพาะทุกรุ่น ตั้งแต่ซีรีส์ 1 ไปจนถึง M Series เราเข้าใจว่า BMW ไม่ใช่แค่รถยนต์ — มันคือประสบการณ์การขับขี่ที่ต้องได้รับการดูแลอย่างถูกต้อง</p>
+        <p class="reveal reveal-delay-2" data-lang-th="เราใช้เครื่องมือวินิจฉัยอัจฉริยะ ISTA/D และ ISTA/P ที่เหมือนกับที่ศูนย์บริการ BMW ใช้ ควบคู่กับอะไหล่คุณภาพสูงจากผู้ผลิตชั้นนำ เพื่อให้มั่นใจว่าทุกงานออกมาในมาตรฐานเดียวกันกับโรงงาน" data-lang-en="We use BMW-grade ISTA/D and ISTA/P diagnostic tools alongside premium OEM and OES parts, ensuring every job meets factory standards — without the dealership premium.">เราใช้เครื่องมือวินิจฉัยอัจฉริยะ ISTA/D และ ISTA/P ที่เหมือนกับที่ศูนย์บริการ BMW ใช้ ควบคู่กับอะไหล่คุณภาพสูงจากผู้ผลิตชั้นนำ เพื่อให้มั่นใจว่าทุกงานออกมาในมาตรฐานเดียวกันกับโรงงาน</p>
+
+        <div class="about__stats reveal reveal-delay-3">
+          <div class="stat">
+            <span class="stat__num">2,400+</span>
+            <span class="stat__label" data-lang-th="คันที่ดูแลแล้ว" data-lang-en="BMWs Serviced">คันที่ดูแลแล้ว</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">98%</span>
+            <span class="stat__label" data-lang-th="ความพึงพอใจ" data-lang-en="Satisfaction Rate">ความพึงพอใจ</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">1 ปี</span>
+            <span class="stat__label" data-lang-th="รับประกันงานซ่อม" data-lang-en="Repair Warranty">รับประกันงานซ่อม</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-lang-th="สิ่งที่เราทำ" data-lang-en="What We Do">สิ่งที่เราทำ</span>
+      <h2 class="display-md" data-lang-th="บริการครบวงจร<br>เฉพาะ BMW" data-lang-en="Complete BMW<br>Specialist Services">บริการครบวงจร<br>เฉพาะ BMW</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="services__track-wrap">
+      <div class="services__track">
+
+        <div class="service-card reveal">
+          <div class="service-card__num">01</div>
+          <div class="service-card__icon"><i data-lucide="settings" width="20" height="20"></i></div>
+          <h3 data-lang-th="เช็คระยะและบำรุงรักษา" data-lang-en="Scheduled Maintenance">เช็คระยะและบำรุงรักษา</h3>
+          <p data-lang-th="เปลี่ยนถ่ายน้ำมันเครื่อง กรองอากาศ หัวเทียน ตามตารางของ BMW ด้วยน้ำมันเกรด OEM" data-lang-en="Oil changes, filters, spark plugs — scheduled to BMW spec with OEM-grade lubricants.">เปลี่ยนถ่ายน้ำมันเครื่อง กรองอากาศ หัวเทียน ตามตารางของ BMW ด้วยน้ำมันเกรด OEM</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-card__num">02</div>
+          <div class="service-card__icon"><i data-lucide="cpu" width="20" height="20"></i></div>
+          <h3 data-lang-th="วินิจฉัยด้วย ISTA" data-lang-en="ISTA Diagnostics">วินิจฉัยด้วย ISTA</h3>
+          <p data-lang-th="อ่านโค้ดข้อผิดพลาดและวินิจฉัยปัญหาด้วยซอฟต์แวร์ BMW ISTA เดียวกับศูนย์บริการ" data-lang-en="Factory-level fault code reading and full system diagnostics with BMW's own ISTA software.">อ่านโค้ดข้อผิดพลาดและวินิจฉัยปัญหาด้วยซอฟต์แวร์ BMW ISTA เดียวกับศูนย์บริการ</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-card__num">03</div>
+          <div class="service-card__icon"><i data-lucide="disc" width="20" height="20"></i></div>
+          <h3 data-lang-th="เบรกและช่วงล่าง" data-lang-en="Brakes & Suspension">เบรกและช่วงล่าง</h3>
+          <p data-lang-th="ผ้าเบรก จานเบรก โช้คอัพ ปีกนก และแบริ่ง ด้วยอะไหล่ Brembo, Bilstein และ Lemforder" data-lang-en="Brake pads, rotors, shock absorbers, control arms — Brembo, Bilstein, and Lemförder parts.">ผ้าเบรก จานเบรก โช้คอัพ ปีกนก และแบริ่ง ด้วยอะไหล่ Brembo, Bilstein และ Lemforder</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-card__num">04</div>
+          <div class="service-card__icon"><i data-lucide="zap" width="20" height="20"></i></div>
+          <h3 data-lang-th="ระบบไฟฟ้าและอิเล็กทรอนิกส์" data-lang-en="Electrical & Electronics">ระบบไฟฟ้าและอิเล็กทรอนิกส์</h3>
+          <p data-lang-th="ซ่อมแซมระบบไฟฟ้า แบตเตอรี่ EFB/AGM ระบบ iDrive และ ECU coding สำหรับฟีเจอร์ใหม่" data-lang-en="Electrical repairs, EFB/AGM battery replacement, iDrive servicing, and ECU coding for new features.">ซ่อมแซมระบบไฟฟ้า แบตเตอรี่ EFB/AGM ระบบ iDrive และ ECU coding สำหรับฟีเจอร์ใหม่</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-card__num">05</div>
+          <div class="service-card__icon"><i data-lucide="droplets" width="20" height="20"></i></div>
+          <h3 data-lang-th="ระบบทำความเย็นและน้ำมัน" data-lang-en="Cooling & Fluid Systems">ระบบทำความเย็นและน้ำมัน</h3>
+          <p data-lang-th="หม้อน้ำ ปั๊มน้ำ เทอร์โมสตัท และการตรวจสอบของเหลวครบระบบ เพื่อป้องกันการเสียหายจากความร้อน" data-lang-en="Radiator, water pump, thermostat, and full fluid inspection — preventing heat damage before it starts.">หม้อน้ำ ปั๊มน้ำ เทอร์โมสตัท และการตรวจสอบของเหลวครบระบบ เพื่อป้องกันการเสียหายจากความร้อน</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-card__num">06</div>
+          <div class="service-card__icon"><i data-lucide="gauge" width="20" height="20"></i></div>
+          <h3 data-lang-th="เครื่องยนต์และเกียร์" data-lang-en="Engine & Transmission">เครื่องยนต์และเกียร์</h3>
+          <p data-lang-th="โอเวอร์ฮอล เครื่องยนต์ ซ่อมเกียร์ ZF และ GS6 รวมถึงระบบ Vanos และ Valvetronic" data-lang-en="Engine overhauls, ZF and GS6 transmission service, Vanos and Valvetronic system repair.">โอเวอร์ฮอล เครื่องยนต์ ซ่อมเกียร์ ZF และ GS6 รวมถึงระบบ Vanos และ Valvetronic</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-card__num">07</div>
+          <div class="service-card__icon"><i data-lucide="shield-check" width="20" height="20"></i></div>
+          <h3 data-lang-th="ตรวจสภาพก่อนซื้อ" data-lang-en="Pre-Purchase Inspection">ตรวจสภาพก่อนซื้อ</h3>
+          <p data-lang-th="ตรวจเช็ค BMW มือสองอย่างละเอียดกว่า 80 จุด พร้อมรายงานสภาพที่โปร่งใสก่อนตัดสินใจซื้อ" data-lang-en="Comprehensive 80-point pre-purchase inspection with a transparent condition report before you commit.">ตรวจเช็ค BMW มือสองอย่างละเอียดกว่า 80 จุด พร้อมรายงานสภาพที่โปร่งใสก่อนตัดสินใจซื้อ</p>
+          <div class="service-card__line"></div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-card__num">08</div>
+          <div class="service-card__icon"><i data-lucide="wrench" width="20" height="20"></i></div>
+          <h3 data-lang-th="M Performance และ Tuning" data-lang-en="M Performance & Tuning">M Performance และ Tuning</h3>
+          <p data-lang-th="อัพเกรด M Performance Parts แต่งตัวถัง สปอยเลอร์ ล้อแม็ก และปรับจูน ECU เพื่อสมรรถนะสูงสุด" data-lang-en="M Performance parts upgrades, exterior styling, custom alloys, and ECU tuning for maximum performance.">อัพเกรด M Performance Parts แต่งตัวถัง สปอยเลอร์ ล้อแม็ก และปรับจูน ECU เพื่อสมรรถนะสูงสุด</p>
+          <div class="service-card__line"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-lang-th="กระบวนการทำงาน" data-lang-en="Our Process">กระบวนการทำงาน</span>
+      <h2 class="display-md" data-lang-th="ทุกขั้นตอน<br>โปร่งใส ตรวจสอบได้" data-lang-en="Every Step<br>Transparent &amp; Traceable">ทุกขั้นตอน<br>โปร่งใส ตรวจสอบได้</h2>
+    </div>
+
+    <div class="process__steps">
+
+      <div class="process-step">
+        <div class="process-step__num">01</div>
+        <div class="process-step__body">
+          <h3 data-lang-th="รับรถและประเมินปัญหา" data-lang-en="Vehicle Intake & Assessment">รับรถและประเมินปัญหา</h3>
+          <p data-lang-th="เราฟังคุณก่อนเสมอ บันทึกอาการและประวัติการซ่อม เพื่อให้การวินิจฉัยแม่นยำที่สุดตั้งแต่เริ่มต้น" data-lang-en="We listen first. Symptoms and service history are recorded so diagnosis starts with the full picture, not guesswork.">เราฟังคุณก่อนเสมอ บันทึกอาการและประวัติการซ่อม เพื่อให้การวินิจฉัยแม่นยำที่สุดตั้งแต่เริ่มต้น</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="process-step__num">02</div>
+        <div class="process-step__body">
+          <h3 data-lang-th="วินิจฉัยด้วยเครื่องมือ BMW" data-lang-en="BMW-Level Diagnostics">วินิจฉัยด้วยเครื่องมือ BMW</h3>
+          <p data-lang-th="สแกนระบบด้วย ISTA พร้อมตรวจเช็คด้วยตาโดยผู้เชี่ยวชาญ เพื่อระบุสาเหตุที่แท้จริง ไม่ใช่แค่อาการ" data-lang-en="Full ISTA scan plus hands-on inspection by a specialist — identifying root causes, not just symptoms.">สแกนระบบด้วย ISTA พร้อมตรวจเช็คด้วยตาโดยผู้เชี่ยวชาญ เพื่อระบุสาเหตุที่แท้จริง ไม่ใช่แค่อาการ</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="process-step__num">03</div>
+        <div class="process-step__body">
+          <h3 data-lang-th="รายงานและใบเสนอราคา" data-lang-en="Transparent Quote">รายงานและใบเสนอราคา</h3>
+          <p data-lang-th="ก่อนเริ่มงานทุกครั้ง เราแจ้งรายละเอียดชิ้นงาน ค่าอะไหล่ และค่าแรงให้ชัดเจน ไม่มีค่าใช้จ่ายแอบแฝง" data-lang-en="Before any work starts, you get a clear breakdown of parts and labour — no hidden charges, no surprises.">ก่อนเริ่มงานทุกครั้ง เราแจ้งรายละเอียดชิ้นงาน ค่าอะไหล่ และค่าแรงให้ชัดเจน ไม่มีค่าใช้จ่ายแอบแฝง</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="process-step__num">04</div>
+        <div class="process-step__body">
+          <h3 data-lang-th="ซ่อมด้วยมือช่างผู้เชี่ยวชาญ" data-lang-en="Expert Repair">ซ่อมด้วยมือช่างผู้เชี่ยวชาญ</h3>
+          <p data-lang-th="ทุกงานทำโดยช่างที่ผ่านการฝึกอบรมเฉพาะด้าน BMW ด้วยอุปกรณ์และอะไหล่คุณภาพสูง" data-lang-en="All work is performed by BMW-trained technicians using premium tools and quality parts specified for your model.">ทุกงานทำโดยช่างที่ผ่านการฝึกอบรมเฉพาะด้าน BMW ด้วยอุปกรณ์และอะไหล่คุณภาพสูง</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="process-step__num">05</div>
+        <div class="process-step__body">
+          <h3 data-lang-th="ทดสอบและส่งมอบ" data-lang-en="Testing & Handover">ทดสอบและส่งมอบ</h3>
+          <p data-lang-th="ทดสอบขับทุกครั้งก่อนคืนรถ พร้อมรายงานงานที่ทำสรุปให้ครบถ้วน และคำแนะนำสำหรับการดูแลรักษาต่อไป" data-lang-en="Every car is road-tested before handover. You receive a complete service summary and recommendations for future care.">ทดสอบขับทุกครั้งก่อนคืนรถ พร้อมรายงานงานที่ทำสรุปให้ครบถ้วน และคำแนะนำสำหรับการดูแลรักษาต่อไป</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" data-lang-th="ผลงานของเรา" data-lang-en="Our Work">ผลงานของเรา</span>
+      <h2 class="display-md reveal" data-lang-th="ฝีมือที่พิสูจน์<br>ด้วยผลลัพธ์" data-lang-en="Craftsmanship<br>Proven by Results">ฝีมือที่พิสูจน์<br>ด้วยผลลัพธ์</h2>
+    </div>
+
+    <div class="gallery__mosaic">
+      <div class="gallery__item reveal">
+        <img
+          src="https://images.unsplash.com/photo-1661050630801-3fb8f6d07c5c?w=1000&h=440&fit=crop"
+          alt="Black BMW at service bay"
+        >
+        <div class="gallery__caption" data-lang-th="BMW 3 Series — ซ่อมบำรุงครบระบบ" data-lang-en="BMW 3 Series — Full System Service">BMW 3 Series — ซ่อมบำรุงครบระบบ</div>
+      </div>
+
+      <div class="gallery__item reveal reveal-delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1765326400712-983362e048c0?w=600&h=600&fit=crop"
+          alt="BMW emblem close up"
+        >
+        <div class="gallery__caption" data-lang-th="รายละเอียดที่ไม่ยอมประนีประนอม" data-lang-en="Details we never compromise">รายละเอียดที่ไม่ยอมประนีประนอม</div>
+      </div>
+
+      <div class="gallery__item reveal reveal-delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1622361987073-f3fc004d6f5e?w=600&h=600&fit=crop"
+          alt="BMW steering wheel detail"
+        >
+        <div class="gallery__caption" data-lang-th="Interior — การดูแลภายในรถ" data-lang-en="Interior care and restoration">Interior — การดูแลภายในรถ</div>
+      </div>
+
+      <div class="gallery__item reveal reveal-delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1746531208832-5789fd24c4af?w=600&h=600&fit=crop"
+          alt="Brake caliper upgrade"
+        >
+        <div class="gallery__caption" data-lang-th="Brembo Brake — อัพเกรดเบรก" data-lang-en="Brembo brake system upgrade">Brembo Brake — อัพเกรดเบรก</div>
+      </div>
+
+      <div class="gallery__item reveal reveal-delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1674678269836-143227f5622b?w=600&h=600&fit=crop"
+          alt="Car front detail"
+        >
+        <div class="gallery__caption" data-lang-th="Bodywork — ดูแลตัวถังและสีรถ" data-lang-en="Bodywork and paint care">Bodywork — ดูแลตัวถังและสีรถ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why__layout">
+      <div class="why__image reveal">
+        <div class="why__img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1774088249014-b0d7d907ad16?w=800&h=600&fit=crop"
+            alt="Mechanics working on car"
+          >
+        </div>
+        <div class="why__floating-card">
+          <strong>BMW</strong>
+          <span data-lang-th="เชี่ยวชาญเฉพาะ<br>ตั้งแต่ปี 2009" data-lang-en="Only BMW<br>since 2009">เชี่ยวชาญเฉพาะ<br>ตั้งแต่ปี 2009</span>
+        </div>
+      </div>
+
+      <div class="why__points">
+        <div class="section-header">
+          <span class="eyebrow" data-lang-th="เหตุผลที่ควรเลือกเรา" data-lang-en="Why Choose Us">เหตุผลที่ควรเลือกเรา</span>
+          <h2 class="display-sm" data-lang-th="ประสบการณ์ที่เน้น BMW อย่างเดียว" data-lang-en="Single-Focus BMW Expertise">ประสบการณ์ที่เน้น BMW อย่างเดียว</h2>
+        </div>
+
+        <div class="why-point reveal">
+          <div class="why-point__icon"><i data-lucide="shield-check" width="20" height="20"></i></div>
+          <div>
+            <h4 data-lang-th="เครื่องมือระดับ OEM" data-lang-en="OEM-Level Equipment">เครื่องมือระดับ OEM</h4>
+            <p data-lang-th="ใช้เครื่องมือและซอฟต์แวร์ที่เหมือนกับที่ศูนย์บริการ BMW อย่างเป็นทางการ ไม่ใช่ของทดแทน" data-lang-en="We use the same tools and software as authorised BMW dealers — not generic alternatives.">ใช้เครื่องมือและซอฟต์แวร์ที่เหมือนกับที่ศูนย์บริการ BMW อย่างเป็นทางการ ไม่ใช่ของทดแทน</p>
+          </div>
+        </div>
+
+        <div class="why-point reveal reveal-delay-1">
+          <div class="why-point__icon"><i data-lucide="eye" width="20" height="20"></i></div>
+          <div>
+            <h4 data-lang-th="ราคาโปร่งใส ไม่มีค่าแอบแฝง" data-lang-en="Transparent, Fixed Pricing">ราคาโปร่งใส ไม่มีค่าแอบแฝง</h4>
+            <p data-lang-th="คุณเห็นราคาก่อนเริ่มงาน ราคาที่แจ้งไว้คือราคาที่จ่ายจริง ไม่มีการบวกค่าใช้จ่ายเพิ่มทีหลัง" data-lang-en="You see the price before work begins. What we quote is what you pay — nothing added after the fact.">คุณเห็นราคาก่อนเริ่มงาน ราคาที่แจ้งไว้คือราคาที่จ่ายจริง ไม่มีการบวกค่าใช้จ่ายเพิ่มทีหลัง</p>
+          </div>
+        </div>
+
+        <div class="why-point reveal reveal-delay-2">
+          <div class="why-point__icon"><i data-lucide="calendar-check" width="20" height="20"></i></div>
+          <div>
+            <h4 data-lang-th="ส่งรถตรงเวลา" data-lang-en="On-Time Delivery">ส่งรถตรงเวลา</h4>
+            <p data-lang-th="เราเคารพเวลาของคุณ ให้การประเมินระยะเวลาที่แม่นยำและแจ้งเตือนหากมีการเปลี่ยนแปลง" data-lang-en="We respect your schedule. Accurate time estimates and proactive updates if anything changes.">เราเคารพเวลาของคุณ ให้การประเมินระยะเวลาที่แม่นยำและแจ้งเตือนหากมีการเปลี่ยนแปลง</p>
+          </div>
+        </div>
+
+        <div class="why-point reveal reveal-delay-3">
+          <div class="why-point__icon"><i data-lucide="award" width="20" height="20"></i></div>
+          <div>
+            <h4 data-lang-th="รับประกันงานซ่อม 1 ปี" data-lang-en="1-Year Repair Guarantee">รับประกันงานซ่อม 1 ปี</h4>
+            <p data-lang-th="ทุกงานซ่อมได้รับการรับประกันสูงสุด 1 ปี หรือ 20,000 กม. ทำให้คุณขับได้อย่างสบายใจ" data-lang-en="Every repair is guaranteed for up to 1 year or 20,000 km — drive with complete peace of mind.">ทุกงานซ่อมได้รับการรับประกันสูงสุด 1 ปี หรือ 20,000 กม. ทำให้คุณขับได้อย่างสบายใจ</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-lang-th="ความไว้วางใจจากลูกค้า" data-lang-en="Client Trust">ความไว้วางใจจากลูกค้า</span>
+      <h2 class="display-md" data-lang-th="ลูกค้าพูดถึงเรา<br>อย่างไร" data-lang-en="What Our<br>Clients Say">ลูกค้าพูดถึงเรา<br>อย่างไร</h2>
+    </div>
+
+    <div class="testimonials__grid">
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__quote">"</div>
+        <div class="stars">
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+        </div>
+        <p data-lang-th="เอา BMW 530i ไปซ่อมปัญหาเครื่องร้อน ที่อื่นๆ บอกต้องเปลี่ยนหม้อน้ำ แต่ช่างฮานหาสาเหตุที่แท้จริงได้ว่าเป็นแค่ท่อยาง ประหยัดเงินได้เยอะมาก" data-lang-en="Took my 530i in for overheating. Other shops said replace the radiator. Chang Han found the real cause — a cracked coolant hose. Saved me a lot of money.">เอา BMW 530i ไปซ่อมปัญหาเครื่องร้อน ที่อื่นๆ บอกต้องเปลี่ยนหม้อน้ำ แต่ช่างฮานหาสาเหตุที่แท้จริงได้ว่าเป็นแค่ท่อยาง ประหยัดเงินได้เยอะมาก</p>
+        <div class="testimonial-card__author">
+          <div class="author-avatar"><i data-lucide="user" width="20" height="20"></i></div>
+          <div class="author-info">
+            <strong>คุณวิชัย ม.</strong>
+            <span data-lang-th="BMW 530i E60 · ลูกค้า 4 ปี" data-lang-en="BMW 530i E60 · 4-year client">BMW 530i E60 · ลูกค้า 4 ปี</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__quote">"</div>
+        <div class="stars">
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+        </div>
+        <p data-lang-th="ประทับใจมากกับความซื่อสัตย์ ช่างฮานบอกตรงๆ ว่าอะไรจำเป็นต้องซ่อมตอนนี้ อะไรรอได้ ไม่โกงเลย เอาใจใส่รถเหมือนรถตัวเอง" data-lang-en="Impressed by the honesty. Chang Han told me exactly what needed fixing now and what could wait. No upselling. They treat your car like their own.">ประทับใจมากกับความซื่อสัตย์ ช่างฮานบอกตรงๆ ว่าอะไรจำเป็นต้องซ่อมตอนนี้ อะไรรอได้ ไม่โกงเลย เอาใจใส่รถเหมือนรถตัวเอง</p>
+        <div class="testimonial-card__author">
+          <div class="author-avatar"><i data-lucide="user" width="20" height="20"></i></div>
+          <div class="author-info">
+            <strong>คุณปาริชาต ส.</strong>
+            <span data-lang-th="BMW X3 F25 · ลูกค้า 2 ปี" data-lang-en="BMW X3 F25 · 2-year client">BMW X3 F25 · ลูกค้า 2 ปี</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__quote">"</div>
+        <div class="stars">
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+          <i data-lucide="star" width="14" height="14" style="fill:var(--foreground)"></i>
+        </div>
+        <p data-lang-th="ทำ pre-purchase inspection ก่อนซื้อ M3 มือสอง ช่างฮานพบปัญหาที่ซ่อนอยู่หลายจุด ทำให้ต่อราคาได้มาก คุ้มค่ามากๆ กับค่าบริการ" data-lang-en="Had a pre-purchase inspection done on a used M3. Chang Han found hidden issues that helped me negotiate the price down significantly. Worth every baht.">ทำ pre-purchase inspection ก่อนซื้อ M3 มือสอง ช่างฮานพบปัญหาที่ซ่อนอยู่หลายจุด ทำให้ต่อราคาได้มาก คุ้มค่ามากๆ กับค่าบริการ</p>
+        <div class="testimonial-card__author">
+          <div class="author-avatar"><i data-lucide="user" width="20" height="20"></i></div>
+          <div class="author-info">
+            <strong>คุณธนพล ก.</strong>
+            <span data-lang-th="BMW M3 F80 · ลูกค้าใหม่" data-lang-en="BMW M3 F80 · New client">BMW M3 F80 · ลูกค้าใหม่</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING ===== -->
+<section class="booking" id="booking">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-lang-th="นัดหมาย" data-lang-en="Appointment">นัดหมาย</span>
+      <h2 data-lang-th="จองคิวซ่อม<br>รถของคุณ" data-lang-en="Reserve Your<br>Service Slot">จองคิวซ่อม<br>รถของคุณ</h2>
+      <p style="font-family:var(--font-body);font-size:0.9rem;line-height:1.8;color:var(--border);margin-top:0.75rem;" data-lang-th="กรอกข้อมูลด้านล่าง หรือติดต่อเราโดยตรงทาง LINE และโทรศัพท์" data-lang-en="Fill in the form below, or reach us directly via LINE or phone.">กรอกข้อมูลด้านล่าง หรือติดต่อเราโดยตรงทาง LINE และโทรศัพท์</p>
+    </div>
+
+    <div class="booking__form-wrap reveal">
+      <form onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang-th="ชื่อ-นามสกุล" data-lang-en="Full Name">ชื่อ-นามสกุล</label>
+            <input type="text" placeholder="เช่น สมชาย ใจดี" data-placeholder-th="เช่น สมชาย ใจดี" data-placeholder-en="e.g. John Smith">
+          </div>
+          <div class="form-group">
+            <label data-lang-th="เบอร์โทรศัพท์" data-lang-en="Phone Number">เบอร์โทรศัพท์</label>
+            <input type="tel" placeholder="0812345678">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang-th="รุ่น BMW ของคุณ" data-lang-en="Your BMW Model">รุ่น BMW ของคุณ</label>
+            <select>
+              <option value="" data-lang-th="เลือกซีรีส์" data-lang-en="Select Series">เลือกซีรีส์</option>
+              <option>BMW 1 Series</option>
+              <option>BMW 2 Series</option>
+              <option>BMW 3 Series</option>
+              <option>BMW 4 Series</option>
+              <option>BMW 5 Series</option>
+              <option>BMW 6 Series</option>
+              <option>BMW 7 Series</option>
+              <option>BMW 8 Series</option>
+              <option>BMW X1</option>
+              <option>BMW X3</option>
+              <option>BMW X5</option>
+              <option>BMW X7</option>
+              <option>BMW M Series</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-lang-th="บริการที่ต้องการ" data-lang-en="Service Required">บริการที่ต้องการ</label>
+            <select>
+              <option value="" data-lang-th="เลือกบริการ" data-lang-en="Select Service">เลือกบริการ</option>
+              <option data-lang-th="เช็คระยะ / บำรุงรักษา" data-lang-en="Scheduled Maintenance">เช็คระยะ / บำรุงรักษา</option>
+              <option data-lang-th="วินิจฉัยปัญหา" data-lang-en="Diagnostics">วินิจฉัยปัญหา</option>
+              <option data-lang-th="ซ่อมเบรกและช่วงล่าง" data-lang-en="Brakes &amp; Suspension">ซ่อมเบรกและช่วงล่าง</option>
+              <option data-lang-th="ระบบไฟฟ้า" data-lang-en="Electrical">ระบบไฟฟ้า</option>
+              <option data-lang-th="ซ่อมเครื่องยนต์" data-lang-en="Engine Repair">ซ่อมเครื่องยนต์</option>
+              <option data-lang-th="ตรวจก่อนซื้อ" data-lang-en="Pre-Purchase Inspection">ตรวจก่อนซื้อ</option>
+              <option data-lang-th="อื่นๆ" data-lang-en="Other">อื่นๆ</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang-th="วันที่ต้องการ" data-lang-en="Preferred Date">วันที่ต้องการ</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label data-lang-th="ช่วงเวลา" data-lang-en="Preferred Time">ช่วงเวลา</label>
+            <select>
+              <option data-lang-th="08:00 – 10:00 น." data-lang-en="08:00 – 10:00">08:00 – 10:00 น.</option>
+              <option data-lang-th="10:00 – 12:00 น." data-lang-en="10:00 – 12:00">10:00 – 12:00 น.</option>
+              <option data-lang-th="13:00 – 15:00 น." data-lang-en="13:00 – 15:00">13:00 – 15:00 น.</option>
+              <option data-lang-th="15:00 – 17:00 น." data-lang-en="15:00 – 17:00">15:00 – 17:00 น.</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label data-lang-th="รายละเอียดเพิ่มเติม" data-lang-en="Additional Details">รายละเอียดเพิ่มเติม</label>
+          <textarea placeholder="อธิบายอาการหรือสิ่งที่ต้องการซ่อม..." data-placeholder-th="อธิบายอาการหรือสิ่งที่ต้องการซ่อม..." data-placeholder-en="Describe symptoms or what you need done..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;font-size:0.9rem;" data-lang-th="ยืนยันการนัดหมาย" data-lang-en="Confirm Appointment">ยืนยันการนัดหมาย</button>
+      </form>
+
+      <div class="booking__contact-alts">
+        <a href="tel:+66812345678" class="contact-alt-link">
+          <i data-lucide="phone" width="16" height="16"></i>
+          <span data-lang-th="โทรตรงที่ 081-234-5678" data-lang-en="Call us: 081-234-5678">โทรตรงที่ 081-234-5678</span>
+        </a>
+        <a href="https://line.me/ti/p/changhanbmw" class="contact-alt-link" target="_blank" rel="noopener">
+          <i data-lucide="message-circle" width="16" height="16"></i>
+          <span data-lang-th="แอด LINE: @changhanbmw" data-lang-en="LINE: @changhanbmw">แอด LINE: @changhanbmw</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCATION ===== -->
+<section class="location" id="location">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-lang-th="มาหาเรา" data-lang-en="Find Us">มาหาเรา</span>
+      <h2 class="display-md" data-lang-th="ที่ตั้งและ<br>เวลาทำการ" data-lang-en="Location &amp;<br>Opening Hours">ที่ตั้งและ<br>เวลาทำการ</h2>
+    </div>
+
+    <div class="location__inner">
+      <div class="location__info">
+        <div class="location__detail reveal">
+          <div class="location__detail-icon"><i data-lucide="map-pin" width="16" height="16"></i></div>
+          <div>
+            <strong style="font-family:var(--font-body);font-weight:600;color:var(--foreground);display:block;margin-bottom:0.25rem;" data-lang-th="ที่อยู่" data-lang-en="Address">ที่อยู่</strong>
+            <span data-lang-th="99/12 ซอยลาดพร้าว 87<br>แขวงวังทองหลาง เขตวังทองหลาง<br>กรุงเทพมหานคร 10310" data-lang-en="99/12 Soi Lat Phrao 87<br>Wang Thonglang, Bangkok 10310">99/12 ซอยลาดพร้าว 87<br>แขวงวังทองหลาง เขตวังทองหลาง<br>กรุงเทพมหานคร 10310</span>
+          </div>
+        </div>
+
+        <div class="location__detail reveal reveal-delay-1">
+          <div class="location__detail-icon"><i data-lucide="phone" width="16" height="16"></i></div>
+          <div>
+            <strong style="font-family:var(--font-body);font-weight:600;color:var(--foreground);display:block;margin-bottom:0.25rem;" data-lang-th="โทรศัพท์" data-lang-en="Phone">โทรศัพท์</strong>
+            <span>081-234-5678</span>
+          </div>
+        </div>
+
+        <div class="location__detail reveal reveal-delay-2">
+          <div class="location__detail-icon"><i data-lucide="mail" width="16" height="16"></i></div>
+          <div>
+            <strong style="font-family:var(--font-body);font-weight:600;color:var(--foreground);display:block;margin-bottom:0.25rem;">Email</strong>
+            <span>hello@changhanbmw.com</span>
+          </div>
+        </div>
+
+        <table class="hours-table reveal">
+          <tbody>
+            <tr>
+              <td data-lang-th="จันทร์ – ศุกร์" data-lang-en="Mon – Fri">จันทร์ – ศุกร์</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td data-lang-th="เสาร์" data-lang-en="Saturday">เสาร์</td>
+              <td>09:00 – 16:00</td>
+            </tr>
+            <tr>
+              <td data-lang-th="อาทิตย์" data-lang-en="Sunday">อาทิตย์</td>
+              <td data-lang-th="ปิด" data-lang-en="Closed">ปิด</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="location__map reveal reveal-delay-1">
+        <div class="map-placeholder">
+          <i data-lucide="map" width="48" height="48" style="color:var(--border)"></i>
+          <p data-lang-th="99/12 ซอยลาดพร้าว 87 กรุงเทพมหานคร<br><br>ใช้ Google Maps เพื่อนำทาง" data-lang-en="99/12 Soi Lat Phrao 87, Bangkok<br><br>Use Google Maps for directions">99/12 ซอยลาดพร้าว 87 กรุงเทพมหานคร<br><br>ใช้ Google Maps เพื่อนำทาง</p>
+          <a href="https://maps.google.com/?q=99+soi+lat+phrao+87+bangkok" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:1rem;" data-lang-th="เปิด Google Maps" data-lang-en="Open Google Maps">เปิด Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer__roundel">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" stroke="rgba(163,170,186,0.3)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="32" stroke="rgba(163,170,186,0.3)" stroke-width="1.5"/>
+        <line x1="50" y1="2" x2="50" y2="98" stroke="rgba(163,170,186,0.3)" stroke-width="1.5"/>
+        <line x1="2" y1="50" x2="98" y2="50" stroke="rgba(163,170,186,0.3)" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <h3>ช่างฮาน</h3>
+        <p data-lang-th="ผู้เชี่ยวชาญซ่อมและบำรุงรักษา BMW โดยเฉพาะ ด้วยประสบการณ์กว่า 15 ปี และมาตรฐานระดับ OEM ที่คุณวางใจได้" data-lang-en="Bangkok's dedicated BMW specialist. 15 years of OEM-standard service you can trust.">ผู้เชี่ยวชาญซ่อมและบำรุงรักษา BMW โดยเฉพาะ ด้วยประสบการณ์กว่า 15 ปี และมาตรฐานระดับ OEM ที่คุณวางใจได้</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 data-lang-th="บริการ" data-lang-en="Services">บริการ</h4>
+        <ul>
+          <li><a href="#services" data-lang-th="เช็คระยะ" data-lang-en="Scheduled Maintenance">เช็คระยะ</a></li>
+          <li><a href="#services" data-lang-th="วินิจฉัย" data-lang-en="Diagnostics">วินิจฉัย</a></li>
+          <li><a href="#services" data-lang-th="เบรกและช่วงล่าง" data-lang-en="Brakes &amp; Suspension">เบรกและช่วงล่าง</a></li>
+          <li><a href="#services" data-lang-th="ซ่อมเครื่องยนต์" data-lang-en="Engine Repair">ซ่อมเครื่องยนต์</a></li>
+          <li><a href="#services" data-lang-th="ตรวจก่อนซื้อ" data-lang-en="Pre-Purchase Check">ตรวจก่อนซื้อ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</h4>
+        <ul>
+          <li><a href="tel:+66812345678">081-234-5678</a></li>
+          <li><a href="mailto:hello@changhanbmw.com">hello@changhanbmw.com</a></li>
+          <li><a href="https://line.me/ti/p/changhanbmw" target="_blank" rel="noopener">LINE: @changhanbmw</a></li>
+          <li><a href="#location" data-lang-th="ลาดพร้าว 87 กรุงเทพฯ" data-lang-en="Lat Phrao 87, Bangkok">ลาดพร้าว 87 กรุงเทพฯ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span data-lang-th="© 2026 ช่างฮาน. สงวนลิขสิทธิ์" data-lang-en="© 2026 Chang Han. All rights reserved.">© 2026 ช่างฮาน. สงวนลิขสิทธิ์</span>
+      <span data-lang-th="เชี่ยวชาญ BMW เท่านั้น · กรุงเทพมหานคร" data-lang-en="BMW Only Specialist · Bangkok">เชี่ยวชาญ BMW เท่านั้น · กรุงเทพมหานคร</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+/* ---- NAVBAR SCROLL ---- */
+(function(){
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+})();
+
+/* ---- HAMBURGER MENU ---- */
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  var links = menu.querySelectorAll('a');
+
+  function closeMenu(){
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  links.forEach(function(l){
+    l.addEventListener('click', closeMenu);
+  });
+})();
+
+/* ---- INTERSECTION OBSERVER REVEALS ---- */
+(function(){
+  var opts = { threshold: 0.15 };
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, opts);
+
+  document.querySelectorAll('.reveal, .process-step, .testimonial-card').forEach(function(el){
+    obs.observe(el);
+  });
+})();
+
+/* ---- HORIZONTAL SCROLL DRAG ---- */
+(function(){
+  var el = document.querySelector('.services__track-wrap');
+  if (!el) return;
+  var isDown = false, startX, scrollLeft;
+
+  el.addEventListener('mousedown', function(e){
+    isDown = true;
+    el.style.cursor = 'grabbing';
+    startX = e.pageX - el.offsetLeft;
+    scrollLeft = el.scrollLeft;
+  });
+  el.addEventListener('mouseleave', function(){ isDown = false; el.style.cursor = 'grab'; });
+  el.addEventListener('mouseup', function(){ isDown = false; el.style.cursor = 'grab'; });
+  el.addEventListener('mousemove', function(e){
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - el.offsetLeft;
+    el.scrollLeft = scrollLeft - (x - startX) * 1.4;
+  });
+})();
+
+/* ---- LANGUAGE SWITCHER ---- */
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+
+/* ---- LUCIDE ICONS ---- */
+lucide.createIcons();
+</script>
+</body>
+</html>
